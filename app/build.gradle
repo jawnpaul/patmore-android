@@ -56,6 +56,10 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 }
 
 android {
+
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
     compileSdkVersion AndroidSdk.compileSdk
     buildToolsVersion AndroidSdk.buildTools
 
@@ -71,8 +75,24 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("String", "PATMORE_BASE_URL", "\"" + localProperties['PATMORE_BASE_URL'] + "\"")
+            buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_PROD_TOKEN'] + "\"")
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField("String", "PATMORE_BASE_URL", "\"" + localProperties['PATMORE_BASE_URL'] + "\"")
+            buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_DEV_TOKEN'] + "\"")
+
+
+            shrinkResources false
+            minifyEnabled false
+            applicationIdSuffix '.dev'
+            versionNameSuffix '-dev'
+            debuggable true
+            zipAlignEnabled true
         }
     }
     compileOptions {
