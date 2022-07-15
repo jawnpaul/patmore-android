@@ -76,6 +76,7 @@ android {
     buildTypes {
         release {
             buildConfigField("String", "PATMORE_BASE_URL", "\"" + localProperties['PATMORE_BASE_URL'] + "\"")
+            buildConfigField("String", "TWITTER_BASE_URL", "\"" + localProperties['TWITTER_BASE_URL'] + "\"")
             buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_PROD_TOKEN'] + "\"")
 
             minifyEnabled false
@@ -84,6 +85,7 @@ android {
 
         debug {
             buildConfigField("String", "PATMORE_BASE_URL", "\"" + localProperties['PATMORE_BASE_URL'] + "\"")
+            buildConfigField("String", "TWITTER_BASE_URL", "\"" + localProperties['TWITTER_BASE_URL'] + "\"")
             buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_DEV_TOKEN'] + "\"")
 
 
