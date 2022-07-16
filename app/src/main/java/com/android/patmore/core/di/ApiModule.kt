@@ -2,6 +2,7 @@ package com.android.patmore.core.di
 
 import com.android.patmore.BuildConfig
 import com.android.patmore.core.api.PatmoreApiService
+import com.android.patmore.core.api.TwitterApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,10 +36,10 @@ object ApiModule {
     }
 
     @Provides
-    fun provideTwitterApi(@Named("Twitter") builder: Retrofit.Builder): PatmoreApiService {
+    fun provideTwitterApi(@Named("Twitter") builder: Retrofit.Builder): TwitterApiService {
         return builder
             .build()
-            .create(PatmoreApiService::class.java)
+            .create(TwitterApiService::class.java)
     }
 
     @Singleton
