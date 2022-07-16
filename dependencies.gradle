@@ -6,6 +6,12 @@ ext {
     hilt_version = "2.38.1"
     //Nav Args
     nav_args = "2.3.5"
+    //Google Services
+    google_services = "4.3.8"
+    //Firebase
+    firebase_crashlytics_gradle_version = "2.7.0"
+    //Firebase Performance
+    firebase_performance = "1.4.0"
 
 
     AndroidSdk = [
@@ -26,7 +32,10 @@ ext {
             daggerHilt         : "dagger.hilt.android.plugin",
             kotlinParcelize    : "kotlin-parcelize",
             jacocoCorePlugin   : "org.jacoco:org.jacoco.core:0.8.4",
-            navArgs            : "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_args"
+            googleServices     : "com.google.gms:google-services:$google_services",
+            firebase           : "com.google.firebase:firebase-crashlytics-gradle:$firebase_crashlytics_gradle_version",
+            navArgs            : "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_args",
+            firebasePerformance: "com.google.firebase:perf-plugin:$firebase_performance"
     ]
 
 
@@ -49,6 +58,10 @@ ext {
             coroutines         : "1.4.2",
             timber             : "4.7.1",
             coil               : "1.4.0",
+            firebaseCrashlytics: "18.0.1",
+            firebaseAnalytics  : "19.0.0",
+            firebaseMessaging  : "20.3.0",
+            firebasePerformance: "20.0.4"
     ]
 
     Libraries = [
@@ -67,6 +80,10 @@ ext {
             coroutinesAndroid  : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$LibrariesVersion.coroutines",
             timber             : "com.jakewharton.timber:timber:$LibrariesVersion.timber",
             coil               : "io.coil-kt:coil:$LibrariesVersion.coil",
+            firebaseCrashlytics: "com.google.firebase:firebase-crashlytics-ktx:$LibrariesVersion.firebaseCrashlytics",
+            firebaseAnalytics  : "com.google.firebase:firebase-analytics-ktx:$LibrariesVersion.firebaseAnalytics",
+            firebaseMessaging  : "com.google.firebase:firebase-messaging-ktx:$LibrariesVersion.firebaseMessaging",
+            firebasePerformance: "com.google.firebase:firebase-perf-ktx:$LibrariesVersion.firebasePerformance",
 
     ]
 

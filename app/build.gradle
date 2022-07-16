@@ -7,6 +7,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 jacoco {
@@ -152,6 +155,12 @@ dependencies {
 
     //Coil
     implementation Libraries.coil
+
+    //Firebase
+    implementation Libraries.firebaseCrashlytics
+    implementation Libraries.firebaseAnalytics
+    implementation Libraries.firebaseMessaging
+    implementation Libraries.firebasePerformance
 
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore
