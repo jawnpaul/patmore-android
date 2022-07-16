@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "457948639381",
+    "project_id": "patmore-android-dev",
+    "storage_bucket": "patmore-android-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457948639381:android:a98c5c58532aaef8422b9c",
+        "android_client_info": {
+          "package_name": "com.android.patmore.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457948639381-qoqrko4rebitd11f06c5ul2pgesul2jm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi0eInrvVQcyjm2FXvpK6cdOpGnEmxOxM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457948639381-qoqrko4rebitd11f06c5ul2pgesul2jm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
