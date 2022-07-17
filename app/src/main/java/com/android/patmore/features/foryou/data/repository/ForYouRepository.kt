@@ -14,10 +14,27 @@ class ForYouRepository @Inject constructor(private val api: PatmoreApiService) :
     override suspend fun getCategoryTweets(category: String): Flow<Either<Failure, List<ForYouTweet>>> =
         flow {
             try {
-                val apiCall = api.getCategory(category)
-                if (apiCall.isSuccessful) {
-                    Timber.d("Successful")
-                    emit(Either.Right(listOf(ForYouTweet(2L))))
+                val res = api.getCategory(category)
+                when (res.isSuccessful) {
+                    true -> {
+                        res.body()?.let { it ->
+                            emit(Either.Right(it.response.map { aa -> aa.toForYouTweet() }))
+                        } ?: Either.Left(Failure.DataError)
+                    }
+                    false -> {
+                        when {
+                            res.code() == 404 -> {
+                                Timber.d("404 error")
+                                Either.Left(Failure.UnAuthorizedError)
+                            }
+                            res.code() == 400 -> {
+                                Either.Left(Failure.BadRequest)
+                            }
+                            else -> {
+                                Either.Left(Failure.ServerError)
+                            }
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 Timber.e(e.stackTraceToString())

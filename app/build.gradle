@@ -162,6 +162,10 @@ dependencies {
     implementation Libraries.firebaseMessaging
     implementation Libraries.firebasePerformance
 
+    //Glide
+    implementation Libraries.glide
+    kapt Libraries.glideProcessor
+
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore
     testImplementation TestLibraries.junit

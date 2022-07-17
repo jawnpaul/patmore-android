@@ -1,5 +1,6 @@
 package com.android.patmore.features.foryou.data.remote.model
 
+import com.android.patmore.features.foryou.domain.model.ForYouTweet
 import com.squareup.moshi.Json
 
 data class TweetCategoryResponse(
@@ -21,4 +22,6 @@ data class TweetResponse(
     @field:Json(name = "createdAt") val createdAt: String,
     @field:Json(name = "updatedAt") val updatedAt: String,
     @field:Json(name = "text") val text: String,
-)
+) {
+    fun toForYouTweet() = ForYouTweet(id = tweetId.toLong())
+}

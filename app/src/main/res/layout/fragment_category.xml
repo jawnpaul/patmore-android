@@ -11,21 +11,28 @@
         android:id="@+id/category_image_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginStart="@dimen/sixteen"
         android:layout_marginTop="@dimen/sixteen"
+        android:scaleType="fitXY"
+        android:layout_marginEnd="@dimen/sixteen"
         app:shapeAppearanceOverlay="@style/fourRoundedEdgeImageView" />
 
     <TextView
         android:id="@+id/category_tweet_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/sixteen"
         android:layout_marginTop="@dimen/sixteen"
+        android:layout_marginEnd="@dimen/sixteen"
         android:textAppearance="@style/textBold"
         tools:text="The beginning of the title of this technology tweet is great" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="32dp"
+        android:layout_marginStart="@dimen/sixteen"
         android:layout_marginTop="@dimen/sixteen"
+        android:layout_marginEnd="@dimen/sixteen"
         android:layout_marginBottom="@dimen/sixteen"
         android:orientation="horizontal">
 

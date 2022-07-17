@@ -31,7 +31,13 @@ class ForYouFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sportCategoryAdapter =
-            CategoryPagerAdapter(this, listOf(CategoryFragment.newInstance("Ade", "Nice")))
+            CategoryPagerAdapter(
+                this,
+                listOf(
+                    CategoryFragment.newInstance("Ade", "1 day"),
+                    CategoryFragment.newInstance("Paulo", "2 mins")
+                )
+            )
         binding.sportPager.adapter = sportCategoryAdapter
     }
 }
