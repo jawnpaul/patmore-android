@@ -23,4 +23,17 @@
         <item name="fontWeight">700</item>
         <item name="android:fontFamily">@font/dm_sans_bold</item>
     </style>
+
+    <style name="textTime">
+        <item name="android:textSize">24sp</item>
+        <item name="fontWeight">700</item>
+        <item name="android:fontFamily">@font/dm_sans_regular</item>
+    </style>
+
+    <style name="fourRoundedEdgeImageView" parent="">
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
+    </style>
 </resources>
