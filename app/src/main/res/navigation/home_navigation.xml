@@ -10,4 +10,9 @@
         android:name="com.android.patmore.features.foryou.presentation.view.ForYouFragment"
         android:label="fragment_for_you"
         tools:layout="@layout/fragment_for_you" />
+    <fragment
+        android:id="@+id/customFragment"
+        android:name="com.android.patmore.features.custom.presentation.view.CustomFragment"
+        android:label="fragment_custom"
+        tools:layout="@layout/fragment_custom" />
 </navigation>
