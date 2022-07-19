@@ -24,8 +24,10 @@
         android:layout_marginStart="@dimen/sixteen"
         android:layout_marginTop="@dimen/sixteen"
         android:layout_marginEnd="@dimen/sixteen"
+        android:maxLines="2"
+        android:ellipsize="end"
         android:textAppearance="@style/textBold"
-        tools:text="The beginning of the title of this technology tweet is great" />
+        tools:text="The beginning of the title of this technology tweet is great and the" />
 
     <RelativeLayout
         android:layout_width="match_parent"

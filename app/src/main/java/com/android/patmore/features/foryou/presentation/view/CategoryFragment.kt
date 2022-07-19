@@ -8,17 +8,18 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.android.patmore.R
 import com.android.patmore.core.imageloader.ImageLoader
+import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
+import com.android.patmore.features.foryou.presentation.model.ImageMediaPresentation
+import com.android.patmore.features.foryou.presentation.model.VideoMediaPresentation
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+    private var param1: ForYouTweetPresentation? = null
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -26,8 +27,7 @@ class CategoryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+            param1 = it.getParcelable(ARG_PARAM1)
         }
     }
 
@@ -42,20 +42,34 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val titleText: TextView = view.findViewById(R.id.category_tweet_text)
-        titleText.text = param1
+        titleText.text = param1?.text ?: ""
         val relativeTime: TextView = view.findViewById(R.id.category_tweet_text_time)
-        relativeTime.text = param2
+
         val imageView: ShapeableImageView = view.findViewById(R.id.category_image_view)
-        imageLoader.loadImage("https://pbs.twimg.com/media/FX4-0fzWYAIV0Td.jpg", imageView)
+
+        param1?.mediaList?.let {
+            if (it.isNotEmpty()) {
+                val first = it[0]
+                when (first) {
+                    is ImageMediaPresentation -> {
+                        val mediaUrl = first.mediaUrl
+                        if (mediaUrl != null) {
+                            imageLoader.loadImage(mediaUrl, imageView)
+                        }
+                    }
+                    is VideoMediaPresentation -> {
+                    }
+                }
+            }
+        }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: ForYouTweetPresentation) =
             CategoryFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putParcelable(ARG_PARAM1, param1)
                 }
             }
     }

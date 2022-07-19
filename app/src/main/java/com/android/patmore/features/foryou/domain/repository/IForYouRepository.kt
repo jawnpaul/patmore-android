@@ -7,5 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface IForYouRepository {
 
-    suspend fun getCategoryTweets(category: String): Flow<Either<Failure, List<ForYouTweet>>>
+    suspend fun getCategoryTweets(category: String): Flow<Either<Failure, List<String>>>
+
+    suspend fun getOriginalTweet(id: String): Flow<Either<Failure, List<ForYouTweet>>>
 }

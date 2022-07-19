@@ -35,8 +35,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
-                            android:textAppearance="@style/textBold"
-                            android:text="@string/sports" />
+                            android:text="@string/technology"
+                            android:textAppearance="@style/textBold" />
 
                         <ImageView
                             android:layout_width="wrap_content"

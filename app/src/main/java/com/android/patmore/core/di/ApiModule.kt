@@ -54,11 +54,19 @@ object ApiModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
+        // TODO:Remove this token
+        val token = "WjhfZGtHY3FudlRLa05GdzJoaVhoV1J2LXRqLWthenV5RFJ0WE1SNHNoNE5FOjE2NTgyNjk5MzY3MTM6MToxOmF0OjE"
         if (BuildConfig.DEBUG) {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             return OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
+                .addInterceptor { chain ->
+                    val newRequest = chain.request().newBuilder()
+                        .addHeader("Authorization", "Bearer $token")
+                        .build()
+                    chain.proceed(newRequest)
+                }
                 .build()
         }
         return OkHttpClient.Builder()
