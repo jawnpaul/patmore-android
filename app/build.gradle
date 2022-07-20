@@ -166,6 +166,9 @@ dependencies {
     implementation Libraries.glide
     kapt Libraries.glideProcessor
 
+    //RelativeTime
+    implementation Libraries.relativeTime
+
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore
     testImplementation TestLibraries.junit

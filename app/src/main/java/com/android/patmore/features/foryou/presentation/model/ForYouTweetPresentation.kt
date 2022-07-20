@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class ForYouTweetPresentation(
     val text: String,
     val id: String,
+    val created: String,
     val mediaList: List<TweetMediaPresentation>? = null
 ) : Parcelable
 

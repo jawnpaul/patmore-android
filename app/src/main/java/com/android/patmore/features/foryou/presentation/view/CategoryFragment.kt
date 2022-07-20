@@ -44,6 +44,7 @@ class CategoryFragment : Fragment() {
         val titleText: TextView = view.findViewById(R.id.category_tweet_text)
         titleText.text = param1?.text ?: ""
         val relativeTime: TextView = view.findViewById(R.id.category_tweet_text_time)
+        relativeTime.text = param1?.created ?: ""
 
         val imageView: ShapeableImageView = view.findViewById(R.id.category_image_view)
 

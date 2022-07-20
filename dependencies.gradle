@@ -62,7 +62,8 @@ ext {
             firebaseAnalytics  : "19.0.0",
             firebaseMessaging  : "20.3.0",
             firebasePerformance: "20.0.4",
-            glide              : "4.13.2"
+            glide              : "4.13.2",
+            relativeTime       : "4.0.3"
     ]
 
     Libraries = [
@@ -86,7 +87,8 @@ ext {
             firebaseMessaging  : "com.google.firebase:firebase-messaging-ktx:$LibrariesVersion.firebaseMessaging",
             firebasePerformance: "com.google.firebase:firebase-perf-ktx:$LibrariesVersion.firebasePerformance",
             glide              : "com.github.bumptech.glide:glide:$LibrariesVersion.glide",
-            glideProcessor     : "com.github.bumptech.glide:compiler:$LibrariesVersion.glide"
+            glideProcessor     : "com.github.bumptech.glide:compiler:$LibrariesVersion.glide",
+            relativeTime       : "com.github.marlonlom:timeago:$LibrariesVersion.relativeTime"
 
     ]
 

@@ -13,8 +13,9 @@
         android:layout_height="200dp"
         android:layout_marginStart="@dimen/sixteen"
         android:layout_marginTop="@dimen/sixteen"
-        android:scaleType="fitXY"
         android:layout_marginEnd="@dimen/sixteen"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
         app:shapeAppearanceOverlay="@style/fourRoundedEdgeImageView" />
 
     <TextView
@@ -24,8 +25,8 @@
         android:layout_marginStart="@dimen/sixteen"
         android:layout_marginTop="@dimen/sixteen"
         android:layout_marginEnd="@dimen/sixteen"
-        android:maxLines="2"
         android:ellipsize="end"
+        android:maxLines="2"
         android:textAppearance="@style/textBold"
         tools:text="The beginning of the title of this technology tweet is great and the" />
 

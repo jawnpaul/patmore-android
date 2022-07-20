@@ -10,6 +10,7 @@ data class SingleTweetResponse(
 data class Res(
     @field:Json(name = "id") val id: String,
     @field:Json(name = "text") val text: String,
+    @field:Json(name = "created_at") val created: String,
     @field:Json(name = "attachments") val attachment: TweetAttachment? = null,
 )
 

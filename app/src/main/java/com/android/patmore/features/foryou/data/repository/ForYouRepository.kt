@@ -52,7 +52,7 @@ class ForYouRepository @Inject constructor(
     override suspend fun getOriginalTweet(id: String): Flow<Either<Failure, List<ForYouTweet>>> =
         flow {
             try {
-                val fields = "attachments"
+                val fields = "attachments,created_at"
                 val expansions = "attachments.media_keys"
                 val mediaFields = "type,media_key,preview_image_url,url"
                 val res = twitterApiService.getTweet(
@@ -99,6 +99,11 @@ class ForYouRepository @Inject constructor(
             }
         }
 
-        return ForYouTweet(id = response.id, text = response.text, tweetMedia = media)
+        return ForYouTweet(
+            id = response.id,
+            text = response.text,
+            tweetMedia = media,
+            created = response.created
+        )
     }
 }

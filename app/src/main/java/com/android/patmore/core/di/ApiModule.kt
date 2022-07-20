@@ -55,7 +55,7 @@ object ApiModule {
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
         // TODO:Remove this token
-        val token = "WjhfZGtHY3FudlRLa05GdzJoaVhoV1J2LXRqLWthenV5RFJ0WE1SNHNoNE5FOjE2NTgyNjk5MzY3MTM6MToxOmF0OjE"
+        val token = "UXV4aXVBWWNBUk5ka3hhUnFtSzFiREtLT3hJQVVES3h0R1VrS2Z6N1c3cXpFOjE2NTgzNDM1OTk1NTM6MTowOmF0OjE"
         if (BuildConfig.DEBUG) {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
