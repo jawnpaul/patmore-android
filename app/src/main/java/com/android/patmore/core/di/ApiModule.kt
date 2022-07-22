@@ -1,6 +1,7 @@
 package com.android.patmore.core.di
 
 import com.android.patmore.BuildConfig
+import com.android.patmore.core.api.AuthenticationInterceptor
 import com.android.patmore.core.api.PatmoreApiService
 import com.android.patmore.core.api.TwitterApiService
 import dagger.Module
@@ -48,14 +49,32 @@ object ApiModule {
     fun provideTwitterRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.TWITTER_BASE_URL)
-            .client(okHttpClient)
+            .client(provideTwitterOkHttPClient())
             .addConverterFactory(MoshiConverterFactory.create())
     }
 
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
-        // TODO:Remove this token
-        val token = "UXV4aXVBWWNBUk5ka3hhUnFtSzFiREtLT3hJQVVES3h0R1VrS2Z6N1c3cXpFOjE2NTgzNDM1OTk1NTM6MTowOmF0OjE"
+    fun providePatmoreOkHttPClient(authenticationInterceptor: AuthenticationInterceptor): OkHttpClient {
+        if (BuildConfig.DEBUG) {
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            return OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .addInterceptor(authenticationInterceptor)
+                /*.addInterceptor { chain ->
+                    val newRequest = chain.request().newBuilder()
+                        .addHeader("Authorization", "Bearer ${sharedPreferences.getAccessToken()}")
+                        .build()
+                    chain.proceed(newRequest)
+                }*/
+                .build()
+        }
+        return OkHttpClient.Builder()
+            .build()
+    }
+
+    private fun provideTwitterOkHttPClient(): OkHttpClient {
+        val token = BuildConfig.TWITTER_TOKEN
         if (BuildConfig.DEBUG) {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)

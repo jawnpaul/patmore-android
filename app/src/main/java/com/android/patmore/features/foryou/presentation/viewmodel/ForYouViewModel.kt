@@ -28,7 +28,7 @@ class ForYouViewModel @Inject constructor(
         getCategoryTweetUseCase(job, "technology") {
             it.onFailure { failure -> Timber.e(failure.toString()) }
             it.onSuccess { result ->
-                getOriginalTechnologyTweet(result)
+                // getOriginalTechnologyTweet(result)
             }
         }
     }

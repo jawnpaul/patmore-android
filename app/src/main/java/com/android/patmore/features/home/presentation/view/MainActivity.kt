@@ -6,16 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.android.patmore.R
+import com.android.patmore.core.utility.SharedPreferences
 import com.android.patmore.databinding.ActivityMainBinding
 import com.android.patmore.features.foryou.presentation.viewmodel.ForYouViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val forYouViewModel: ForYouViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
+
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

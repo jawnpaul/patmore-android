@@ -81,6 +81,7 @@ android {
             buildConfigField("String", "PATMORE_BASE_URL", "\"" + localProperties['PATMORE_BASE_URL'] + "\"")
             buildConfigField("String", "TWITTER_BASE_URL", "\"" + localProperties['TWITTER_BASE_URL'] + "\"")
             buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_PROD_TOKEN'] + "\"")
+            buildConfigField("String", "TWITTER_TOKEN", "\"" + localProperties['TWITTER_BEARER_TOKEN'] + "\"")
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -90,6 +91,7 @@ android {
             buildConfigField("String", "PATMORE_BASE_URL", "\"" + localProperties['PATMORE_BASE_URL'] + "\"")
             buildConfigField("String", "TWITTER_BASE_URL", "\"" + localProperties['TWITTER_BASE_URL'] + "\"")
             buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_DEV_TOKEN'] + "\"")
+            buildConfigField("String", "TWITTER_TOKEN", "\"" + localProperties['TWITTER_BEARER_TOKEN'] + "\"")
 
 
             shrinkResources false
@@ -168,6 +170,9 @@ dependencies {
 
     //RelativeTime
     implementation Libraries.relativeTime
+
+    //Mixpanel
+    implementation Libraries.mixpanel
 
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore
