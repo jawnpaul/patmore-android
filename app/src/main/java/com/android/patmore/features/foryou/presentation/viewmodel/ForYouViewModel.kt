@@ -1,5 +1,6 @@
 package com.android.patmore.features.foryou.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.patmore.core.exception.Failure
@@ -8,7 +9,10 @@ import com.android.patmore.core.functional.onSuccess
 import com.android.patmore.features.foryou.domain.usecases.GetCategoryTweetUseCase
 import com.android.patmore.features.foryou.domain.usecases.GetForYouTweetsUseCase
 import com.android.patmore.features.foryou.domain.usecases.GetSingleOriginalTweetUseCase
+import com.android.patmore.features.foryou.presentation.model.CategoryTweetItem
 import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
+import com.android.patmore.features.foryou.presentation.model.SingleCategoryTweetItem
+import com.xwray.groupie.Section
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import timber.log.Timber
@@ -27,12 +31,17 @@ class ForYouViewModel @Inject constructor(
     private val _technologyTweets = MutableLiveData<List<ForYouTweetPresentation>>()
     val technologyTweets get() = _technologyTweets
 
+    // TODO:Change Livedata to stateflow
+    private val _sectionList = MutableLiveData<List<Section>>()
+    val sectionList: LiveData<List<Section>> get() = _sectionList
+
     private var techList = listOf<String>()
     private var animeList = listOf<String>()
     private var musicList = listOf<String>()
     private var travelList = listOf<String>()
     private var sportList = listOf<String>()
     private var businessList = listOf<String>()
+    private var availableSections = listOf<String>()
 
     fun getTechnologyTweets() {
         getCategoryTweetUseCase(job, "technology") {
@@ -58,7 +67,33 @@ class ForYouViewModel @Inject constructor(
                 val sport = result.filter { aa -> sportList.contains(aa.id) }
                 val business = result.filter { aa -> businessList.contains(aa.id) }
                 // section.addAll(techcategory)
-                _technologyTweets.value = result.map { aa -> aa.toPresentation() }
+                // _technologyTweets.value = result.map { aa -> aa.toPresentation() }
+
+                if (result.isNotEmpty()) {
+
+                    val aab = arrayListOf<Section>()
+
+                    val items = result.map { ax -> SingleCategoryTweetItem(ax.toPresentation()) }
+                    val ti = tech.map { ax -> SingleCategoryTweetItem(ax.toPresentation()) }
+                    val bi = business.map { ax -> SingleCategoryTweetItem(ax.toPresentation()) }
+
+                    // need a list of sections
+                    // use the id of the item to get its section
+
+                    val aa = Section()
+                    aa.add(CategoryTweetItem("Technology", ti))
+                    aa.add(CategoryTweetItem("Business", bi))
+                    aab.add(aa)
+
+                    /*val xx = result.forEach {
+                        val aa = Section()
+                        aa.add(CategoryTweetItem("tech", items))
+                        aab.add(aa)
+                    }*/
+                    _sectionList.value = aab
+                } else {
+                    _sectionList.value = emptyList()
+                }
             }
         }
     }
@@ -89,6 +124,7 @@ class ForYouViewModel @Inject constructor(
         val ids = response.flatMap { pair -> pair.second.map { it } }
         // make call to twitter api
         getOriginalTweets(ids)
+        availableSections = response.map { pair -> pair.first }
 
         techList = response.filter { pair -> pair.first == "technology" }.flatMap { it.second }
         animeList = response.filter { pair -> pair.first == "anime" }.flatMap { it.second }

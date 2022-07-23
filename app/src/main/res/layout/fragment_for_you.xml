@@ -9,7 +9,12 @@
         android:orientation="vertical"
         tools:context=".features.foryou.presentation.view.ForYouFragment">
 
-        <androidx.core.widget.NestedScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <!--<androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fillViewport="true">
@@ -54,7 +59,8 @@
 
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+
+        </androidx.core.widget.NestedScrollView>-->
 
     </LinearLayout>
 </layout>

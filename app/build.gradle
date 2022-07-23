@@ -178,6 +178,10 @@ dependencies {
     //Lottie
     implementation Libraries.lottie
 
+    //Groupie
+    implementation Libraries.groupie
+    implementation Libraries.groupieDataBinding
+
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore
     testImplementation TestLibraries.junit

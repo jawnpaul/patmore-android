@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.patmore.databinding.FragmentForYouBinding
 import com.android.patmore.features.foryou.presentation.adapter.CategoryPagerAdapter
 import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
 import com.android.patmore.features.foryou.presentation.viewmodel.ForYouViewModel
+import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +38,7 @@ class ForYouFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        forYouViewModel.technologyTweets.observe(viewLifecycleOwner) {
+        /*forYouViewModel.technologyTweets.observe(viewLifecycleOwner) {
             val fragList = it.map { aa -> getFragment(aa) }
             sportCategoryAdapter =
                 CategoryPagerAdapter(
@@ -43,6 +46,20 @@ class ForYouFragment : Fragment() {
                     fragList
                 )
             binding.sportPager.adapter = sportCategoryAdapter
+        }*/
+
+        binding.mainRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
+        forYouViewModel.sectionList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                val groupieAdapter = GroupieAdapter()
+                binding.mainRecyclerView.adapter = groupieAdapter
+                groupieAdapter.addAll(it)
+            } else {
+                val groupieAdapter = GroupieAdapter()
+                binding.mainRecyclerView.adapter = groupieAdapter
+            }
         }
     }
 
