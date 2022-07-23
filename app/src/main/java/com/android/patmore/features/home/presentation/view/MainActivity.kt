@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         navView.setupWithNavController(navController)
 
-        forYouViewModel.getTechnologyTweets()
+        // forYouViewModel.getTechnologyTweets()
+        forYouViewModel.getForYouTweets()
     }
 }

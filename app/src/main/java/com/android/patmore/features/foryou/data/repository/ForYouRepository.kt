@@ -4,6 +4,8 @@ import com.android.patmore.core.api.PatmoreApiService
 import com.android.patmore.core.api.TwitterApiService
 import com.android.patmore.core.exception.Failure
 import com.android.patmore.core.functional.Either
+import com.android.patmore.core.utility.SharedPreferences
+import com.android.patmore.features.foryou.data.remote.model.ForYouData
 import com.android.patmore.features.foryou.data.remote.model.Res
 import com.android.patmore.features.foryou.data.remote.model.SingleTweetResponse
 import com.android.patmore.features.foryou.domain.model.ForYouTweet
@@ -17,6 +19,7 @@ import javax.inject.Inject
 class ForYouRepository @Inject constructor(
     private val patmoreApiService: PatmoreApiService,
     private val twitterApiService: TwitterApiService,
+    private val sharedPreferences: SharedPreferences,
 ) : IForYouRepository {
     override suspend fun getCategoryTweets(category: String): Flow<Either<Failure, List<String>>> =
         flow {
@@ -90,6 +93,43 @@ class ForYouRepository @Inject constructor(
             }
         }
 
+    override suspend fun getForYouTweets(): Flow<Either<Failure, List<Pair<String, List<String>>>>> =
+        flow {
+
+            if (sharedPreferences.getUserCategories() != null) {
+                try {
+
+                    val res = patmoreApiService.getUserSubscriptionTweets(sharedPreferences.getUserCategories()!!, page = 1)
+                    when (res.isSuccessful) {
+                        true -> {
+                            res.body()?.let { it ->
+                                val ab = getPair(it.data)
+                                emit(Either.Right(ab))
+                            } ?: emit(Either.Left(Failure.DataError))
+                        }
+                        false -> {
+                            when {
+                                res.code() == 404 -> {
+                                    Timber.d("404 error")
+                                    emit(Either.Left(Failure.UnAuthorizedError))
+                                }
+                                res.code() == 400 -> {
+                                    emit(Either.Left(Failure.BadRequest))
+                                }
+                                else -> {
+                                    emit(Either.Left(Failure.ServerError))
+                                }
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Timber.e(e.stackTraceToString())
+                }
+            } else {
+                Timber.e("Categories are null")
+            }
+        }
+
     private fun mapToDomain(data: SingleTweetResponse, response: Res): ForYouTweet {
         val keys = response.attachment?.mediaKeys
         val media = mutableListOf<TweetMedia>()
@@ -105,5 +145,41 @@ class ForYouRepository @Inject constructor(
             tweetMedia = media,
             created = response.created
         )
+    }
+
+    private fun getPair(data: ForYouData): List<Pair<String, List<String>>> {
+        val aa = mutableListOf<Pair<String, List<String>>>()
+
+        data.anime?.let {
+            val res = "anime" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.technology?.let {
+            val res = "technology" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.sport?.let {
+            val res = "sport" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.music?.let {
+            val res = "music" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.travel?.let {
+            val res = "travel" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.business?.let {
+            val res = "business" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        return aa
     }
 }

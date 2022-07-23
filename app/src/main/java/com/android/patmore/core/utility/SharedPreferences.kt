@@ -31,4 +31,14 @@ class SharedPreferences @Inject constructor(@ApplicationContext context: Context
     fun getAccessToken(): String? {
         return sharedPref.getString("accessToken", null)
     }
+
+    fun saveUserCategories(categories: String) {
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString("userCategories", categories.trim())
+        editor.apply()
+    }
+
+    fun getUserCategories(): String? {
+        return sharedPref.getString("userCategories", null)
+    }
 }

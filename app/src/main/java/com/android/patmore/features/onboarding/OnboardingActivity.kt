@@ -97,6 +97,7 @@ class OnboardingActivity : AppCompatActivity() {
 
         binding.onboardingButton.setOnClickListener {
             val list = categories.toList()
+            sharedPreferences.saveUserCategories(getCategoriesString(list))
             subscriptionViewModel.subscribeToTopic(list)
         }
 
@@ -132,5 +133,13 @@ class OnboardingActivity : AppCompatActivity() {
             binding.technologyChip.isChecked || binding.businessChip.isChecked ||
                 binding.sportChip.isChecked || binding.musicChip.isChecked || binding.travelChip.isChecked || binding.animeChip.isChecked
         binding.onboardingButton.isEnabled = enable
+    }
+
+    private fun getCategoriesString(ids: List<String>): String {
+        var res = ""
+        ids.forEach {
+            res += " $it"
+        }
+        return res
     }
 }

@@ -22,6 +22,10 @@ fun Long.toRelativeTime(): String {
     res = res.replace("within", "")
     res = res.replace("about", "")
     res = res.replace("an hour", "1 hour")
-    res += " ago"
-    return res.trim()
+    return if (res.contains("ago")) {
+        res.trim()
+    } else {
+        res += " ago".trim()
+        res
+    }
 }

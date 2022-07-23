@@ -2,6 +2,7 @@ package com.android.patmore.core.api
 
 import com.android.patmore.features.authentication.data.remote.model.CreateTokenRequest
 import com.android.patmore.features.authentication.data.remote.model.CreateTokenResponse
+import com.android.patmore.features.foryou.data.remote.model.ForYouResponse
 import com.android.patmore.features.foryou.data.remote.model.TweetCategoryResponse
 import com.android.patmore.features.subscription.data.remote.model.CreateSubscriptionRequest
 import com.android.patmore.features.subscription.data.remote.model.CreateSubscriptionResponse
@@ -17,6 +18,12 @@ interface PatmoreApiService {
     suspend fun getCategory(
         @Query("category") category: String,
     ): Response<TweetCategoryResponse>
+
+    @GET("top")
+    suspend fun getUserSubscriptionTweets(
+        @Query("search") category: String,
+        @Query("page") page: Int,
+    ): Response<ForYouResponse>
 
     @POST("token")
     suspend fun generateToken(@Body request: CreateTokenRequest): Response<CreateTokenResponse>
