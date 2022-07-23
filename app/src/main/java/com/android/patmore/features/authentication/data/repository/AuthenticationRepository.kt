@@ -33,22 +33,21 @@ class AuthenticationRepository @Inject constructor(
                             val token = it.token
                             sharedPreferences.saveAccessToken(token)
                             emit(Either.Right(Unit))
-                            // TODO:Uncomment the lines below
-                            // mixPanelUtil.identifyUser(id)
-                            // mixPanelUtil.profileUpdate(id)
+                            mixPanelUtil.identifyUser(id)
+                            mixPanelUtil.profileUpdate(id)
                         }
                     }
                     false -> {
                         when {
                             res.code() == 404 -> {
                                 Timber.d("404 error")
-                                Either.Left(Failure.UnAuthorizedError)
+                                emit(Either.Left(Failure.UnAuthorizedError))
                             }
                             res.code() == 400 -> {
-                                Either.Left(Failure.BadRequest)
+                                emit(Either.Left(Failure.BadRequest))
                             }
                             else -> {
-                                Either.Left(Failure.ServerError)
+                                emit(Either.Left(Failure.ServerError))
                             }
                         }
                     }

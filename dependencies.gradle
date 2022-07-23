@@ -15,7 +15,7 @@ ext {
 
 
     AndroidSdk = [
-            compileSdk: 30,
+            compileSdk: 31,
             targetSdk : 30,
             minSdk    : 21,
             buildTools: "30.0.3"
@@ -64,7 +64,8 @@ ext {
             firebasePerformance: "20.0.4",
             glide              : "4.13.2",
             relativeTime       : "4.0.3",
-            mixpanel           : "5.9.5"
+            mixpanel           : "5.9.5",
+            lottie             : "4.1.0",
     ]
 
     Libraries = [
@@ -90,7 +91,8 @@ ext {
             glide              : "com.github.bumptech.glide:glide:$LibrariesVersion.glide",
             glideProcessor     : "com.github.bumptech.glide:compiler:$LibrariesVersion.glide",
             relativeTime       : "com.github.marlonlom:timeago:$LibrariesVersion.relativeTime",
-            mixpanel           : "com.mixpanel.android:mixpanel-android:$LibrariesVersion.mixpanel"
+            mixpanel           : "com.mixpanel.android:mixpanel-android:$LibrariesVersion.mixpanel",
+            lottie             : "com.airbnb.android:lottie:$LibrariesVersion.lottie",
 
     ]
 

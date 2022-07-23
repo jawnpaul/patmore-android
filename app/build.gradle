@@ -130,12 +130,13 @@ dependencies {
     implementation Libraries.materialDesign
     implementation Libraries.constraintLayout
 
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
 
     //hilt for DI
     implementation Libraries.hilt
@@ -173,6 +174,9 @@ dependencies {
 
     //Mixpanel
     implementation Libraries.mixpanel
+
+    //Lottie
+    implementation Libraries.lottie
 
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore

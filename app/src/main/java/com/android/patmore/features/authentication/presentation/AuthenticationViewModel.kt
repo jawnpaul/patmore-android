@@ -18,9 +18,9 @@ class AuthenticationViewModel @Inject constructor(private val authenticationToke
     fun getToken() {
         authenticationTokenUseCase(job, GetAuthenticationTokenUseCase.None()) {
             it.onFailure { failure -> Timber.e(failure.toString()) }
-            it.onSuccess { Timber.d("Token generated")
-            // make call to subscribe user
-
+            it.onSuccess {
+                Timber.d("Token generated")
+                // make call to subscribe user
             }
         }
     }

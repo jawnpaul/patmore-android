@@ -26,19 +26,19 @@ class ForYouRepository @Inject constructor(
                     true -> {
                         res.body()?.let { it ->
                             emit(Either.Right(it.response.map { aa -> aa.tweetId }))
-                        } ?: Either.Left(Failure.DataError)
+                        } ?: emit(Either.Left(Failure.DataError))
                     }
                     false -> {
                         when {
                             res.code() == 404 -> {
                                 Timber.d("404 error")
-                                Either.Left(Failure.UnAuthorizedError)
+                                emit(Either.Left(Failure.UnAuthorizedError))
                             }
                             res.code() == 400 -> {
-                                Either.Left(Failure.BadRequest)
+                                emit(Either.Left(Failure.BadRequest))
                             }
                             else -> {
-                                Either.Left(Failure.ServerError)
+                                emit(Either.Left(Failure.ServerError))
                             }
                         }
                     }
@@ -67,19 +67,19 @@ class ForYouRepository @Inject constructor(
                         res.body()?.let { it ->
                             val list = it.data.map { aa -> mapToDomain(it, aa) }
                             emit(Either.Right(list))
-                        } ?: Either.Left(Failure.DataError)
+                        } ?: emit(Either.Left(Failure.DataError))
                     }
                     false -> {
                         when {
                             res.code() == 404 -> {
                                 Timber.d("404 error")
-                                Either.Left(Failure.UnAuthorizedError)
+                                emit(Either.Left(Failure.UnAuthorizedError))
                             }
                             res.code() == 400 -> {
-                                Either.Left(Failure.BadRequest)
+                                emit(Either.Left(Failure.BadRequest))
                             }
                             else -> {
-                                Either.Left(Failure.ServerError)
+                                emit(Either.Left(Failure.ServerError))
                             }
                         }
                     }

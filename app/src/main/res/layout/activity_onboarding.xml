@@ -1,9 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".features.onboarding.OnboardingActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".features.onboarding.OnboardingActivity">
+
+        <TextView
+            android:id="@+id/headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sixteen"
+            android:text="@string/what_do_you_want_to_see"
+            android:textAppearance="@style/textBold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginTop="@dimen/sixteen"
+            android:layout_marginEnd="@dimen/sixteen"
+            android:text="@string/select_at_least_one"
+            android:textAppearance="@style/textHelper"
+            app:layout_constraintTop_toBottomOf="@id/headline" />
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginEnd="@dimen/sixteen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/technology_chip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/technology"
+                android:textAppearance="@style/textHelper" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/business_chip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/business_and_finance"
+                android:textAppearance="@style/textHelper" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/sport_chip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sports"
+                android:textAppearance="@style/textHelper" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/music_chip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/music"
+                android:textAppearance="@style/textHelper" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/travel_chip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/travel"
+                android:textAppearance="@style/textHelper" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/anime_chip"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/anime"
+                android:textAppearance="@style/textHelper" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.android.patmore.core.utility.ProgressButton
+            android:id="@+id/onboarding_button"
+            style="@style/Widget.ProgressButton.Purple"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/sixteen"
+            android:layout_marginTop="@dimen/twenty_four"
+            android:layout_marginEnd="@dimen/sixteen"
+            app:enabled="false"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup"
+            app:text="Continue" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

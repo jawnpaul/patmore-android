@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ProgressButton">
+        <attr name="text" format="string" />
+        <attr name="loading" format="boolean" />
+        <attr name="enabled" format="boolean" />
+        <attr name="lottie_rawRes" />
+    </declare-styleable>
+</resources>

@@ -6,6 +6,8 @@ import com.android.patmore.features.authentication.data.repository.Authenticatio
 import com.android.patmore.features.authentication.domain.repository.IAuthenticationRepository
 import com.android.patmore.features.foryou.data.repository.ForYouRepository
 import com.android.patmore.features.foryou.domain.repository.IForYouRepository
+import com.android.patmore.features.subscription.data.repository.SubscriptionRepository
+import com.android.patmore.features.subscription.domain.repository.ISubscriptionRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,4 +25,7 @@ abstract class BindsModule {
 
     @Binds
     abstract fun bindsAuthenticationRepository(repository: AuthenticationRepository): IAuthenticationRepository
+
+    @Binds
+    abstract fun bindsSubscriptionRepository(repository: SubscriptionRepository): ISubscriptionRepository
 }
