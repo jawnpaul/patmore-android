@@ -8,7 +8,8 @@ data class ForYouTweetPresentation(
     val text: String,
     val id: String,
     val created: String,
-    val mediaList: List<TweetMediaPresentation>? = null
+    val mediaList: List<TweetMediaPresentation>? = null,
+    val category: String? = null
 ) : Parcelable
 
 @Parcelize

@@ -35,13 +35,7 @@ class ForYouViewModel @Inject constructor(
     private val _sectionList = MutableLiveData<List<Section>>()
     val sectionList: LiveData<List<Section>> get() = _sectionList
 
-    private var techList = listOf<String>()
-    private var animeList = listOf<String>()
-    private var musicList = listOf<String>()
-    private var travelList = listOf<String>()
-    private var sportList = listOf<String>()
-    private var businessList = listOf<String>()
-    private var availableSections = listOf<String>()
+    private val mutableMap = mutableMapOf<String, String>()
 
     fun getTechnologyTweets() {
         getCategoryTweetUseCase(job, "technology") {
@@ -58,39 +52,22 @@ class ForYouViewModel @Inject constructor(
             it.onFailure { failure -> Timber.e(failure.toString()) }
             it.onSuccess { result ->
                 Timber.d("Tweet Gotten")
-                // need to map the presentation to category
-                // if id in tech list, add
-                val tech = result.filter { aa -> techList.contains(aa.id) }
-                val anime = result.filter { aa -> animeList.contains(aa.id) }
-                val music = result.filter { aa -> musicList.contains(aa.id) }
-                val travel = result.filter { aa -> travelList.contains(aa.id) }
-                val sport = result.filter { aa -> sportList.contains(aa.id) }
-                val business = result.filter { aa -> businessList.contains(aa.id) }
-                // section.addAll(techcategory)
-                // _technologyTweets.value = result.map { aa -> aa.toPresentation() }
-
                 if (result.isNotEmpty()) {
+                    val sections = arrayListOf<Section>()
 
-                    val aab = arrayListOf<Section>()
+                    val categoryList = mutableMap.values.distinct().map { category -> category }
+                    // Adding category here so I can use to filter later on
+                    val presentation = result.map { aa -> getPresentation(aa.toPresentation()) }
 
-                    val items = result.map { ax -> SingleCategoryTweetItem(ax.toPresentation()) }
-                    val ti = tech.map { ax -> SingleCategoryTweetItem(ax.toPresentation()) }
-                    val bi = business.map { ax -> SingleCategoryTweetItem(ax.toPresentation()) }
+                    categoryList.forEach { category ->
+                        val section = Section()
+                        val sectionItems = presentation.filter { tweetPresentation -> tweetPresentation.category == category }
+                        val sectionData = sectionItems.map { categoryItem -> SingleCategoryTweetItem(categoryItem) }
+                        section.add(CategoryTweetItem(category, sectionData))
+                        sections.add(section)
+                    }
 
-                    // need a list of sections
-                    // use the id of the item to get its section
-
-                    val aa = Section()
-                    aa.add(CategoryTweetItem("Technology", ti))
-                    aa.add(CategoryTweetItem("Business", bi))
-                    aab.add(aa)
-
-                    /*val xx = result.forEach {
-                        val aa = Section()
-                        aa.add(CategoryTweetItem("tech", items))
-                        aab.add(aa)
-                    }*/
-                    _sectionList.value = aab
+                    _sectionList.value = sections
                 } else {
                     _sectionList.value = emptyList()
                 }
@@ -124,18 +101,19 @@ class ForYouViewModel @Inject constructor(
         val ids = response.flatMap { pair -> pair.second.map { it } }
         // make call to twitter api
         getOriginalTweets(ids)
-        availableSections = response.map { pair -> pair.first }
 
-        techList = response.filter { pair -> pair.first == "technology" }.flatMap { it.second }
-        animeList = response.filter { pair -> pair.first == "anime" }.flatMap { it.second }
-        sportList = response.filter { pair -> pair.first == "sport" }.flatMap { it.second }
-        travelList = response.filter { pair -> pair.first == "travel" }.flatMap { it.second }
-        businessList = response.filter { pair -> pair.first == "business" }.flatMap { it.second }
-        musicList = response.filter { pair -> pair.first == "music" }.flatMap { it.second }
+        response.forEach { pair ->
+            val ab = pair.second.associateWith { pair.first }
+            mutableMap += ab
+        }
     }
 
     override fun onCleared() {
         super.onCleared()
         job.cancel()
+    }
+
+    private fun getPresentation(presentation: ForYouTweetPresentation): ForYouTweetPresentation {
+        return presentation.copy(category = mutableMap[presentation.id])
     }
 }
