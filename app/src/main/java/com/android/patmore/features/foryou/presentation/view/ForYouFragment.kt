@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.patmore.databinding.FragmentForYouBinding
@@ -14,6 +18,8 @@ import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresent
 import com.android.patmore.features.foryou.presentation.viewmodel.ForYouViewModel
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ForYouFragment : Fragment() {
@@ -38,20 +44,10 @@ class ForYouFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*forYouViewModel.technologyTweets.observe(viewLifecycleOwner) {
-            val fragList = it.map { aa -> getFragment(aa) }
-            sportCategoryAdapter =
-                CategoryPagerAdapter(
-                    this,
-                    fragList
-                )
-            binding.sportPager.adapter = sportCategoryAdapter
-        }*/
-
         binding.mainRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
-        forYouViewModel.sectionList.observe(viewLifecycleOwner) {
+        /*forYouViewModel.forYouView.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 val groupieAdapter = GroupieAdapter()
                 binding.mainRecyclerView.adapter = groupieAdapter
@@ -59,6 +55,33 @@ class ForYouFragment : Fragment() {
             } else {
                 val groupieAdapter = GroupieAdapter()
                 binding.mainRecyclerView.adapter = groupieAdapter
+            }
+        }*/
+
+        lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                forYouViewModel.forYouView.collect { state ->
+                    if (state.loading) {
+                        binding.shimmerLayout.visibility = View.VISIBLE
+                    } else {
+                        binding.shimmerLayout.visibility = View.GONE
+                    }
+
+                    state.error?.let { error ->
+                        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+                    }
+
+                    state.response?.let { sections ->
+                        if (sections.isNotEmpty()) {
+                            val groupieAdapter = GroupieAdapter()
+                            binding.mainRecyclerView.adapter = groupieAdapter
+                            groupieAdapter.addAll(sections)
+                        } else {
+                            val groupieAdapter = GroupieAdapter()
+                            binding.mainRecyclerView.adapter = groupieAdapter
+                        }
+                    }
+                }
             }
         }
     }

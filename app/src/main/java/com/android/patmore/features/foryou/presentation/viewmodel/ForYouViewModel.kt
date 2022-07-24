@@ -1,20 +1,24 @@
 package com.android.patmore.features.foryou.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.patmore.core.exception.Failure
 import com.android.patmore.core.functional.onFailure
 import com.android.patmore.core.functional.onSuccess
+import com.android.patmore.features.foryou.domain.model.ForYouTweet
 import com.android.patmore.features.foryou.domain.usecases.GetCategoryTweetUseCase
 import com.android.patmore.features.foryou.domain.usecases.GetForYouTweetsUseCase
 import com.android.patmore.features.foryou.domain.usecases.GetSingleOriginalTweetUseCase
 import com.android.patmore.features.foryou.presentation.model.CategoryTweetItem
 import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
 import com.android.patmore.features.foryou.presentation.model.SingleCategoryTweetItem
+import com.android.patmore.features.foryou.presentation.state.ForYouView
 import com.xwray.groupie.Section
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -31,9 +35,8 @@ class ForYouViewModel @Inject constructor(
     private val _technologyTweets = MutableLiveData<List<ForYouTweetPresentation>>()
     val technologyTweets get() = _technologyTweets
 
-    // TODO:Change Livedata to stateflow
-    private val _sectionList = MutableLiveData<List<Section>>()
-    val sectionList: LiveData<List<Section>> get() = _sectionList
+    private val _forYouView = MutableStateFlow(ForYouView())
+    val forYouView: StateFlow<ForYouView> = _forYouView
 
     private val mutableMap = mutableMapOf<String, String>()
 
@@ -49,28 +52,45 @@ class ForYouViewModel @Inject constructor(
     private fun getOriginalTweets(ids: List<String>) {
         val id = getIds(ids)
         getSingleOriginalTweetUseCase(job, id) {
-            it.onFailure { failure -> Timber.e(failure.toString()) }
-            it.onSuccess { result ->
-                Timber.d("Tweet Gotten")
-                if (result.isNotEmpty()) {
-                    val sections = arrayListOf<Section>()
+            it.fold(
+                ::handleOriginalTweetFailure,
+                ::handleOriginalTweetSuccess
+            )
+        }
+    }
 
-                    val categoryList = mutableMap.values.distinct().map { category -> category }
-                    // Adding category here so I can use to filter later on
-                    val presentation = result.map { aa -> getPresentation(aa.toPresentation()) }
+    private fun handleOriginalTweetFailure(failure: Failure) {
+        Timber.e(failure.toString())
+        _forYouView.update {
+            it.copy(loading = false, error = "Something went wrong.")
+        }
+    }
 
-                    categoryList.forEach { category ->
-                        val section = Section()
-                        val sectionItems = presentation.filter { tweetPresentation -> tweetPresentation.category == category }
-                        val sectionData = sectionItems.map { categoryItem -> SingleCategoryTweetItem(categoryItem) }
-                        section.add(CategoryTweetItem(category, sectionData))
-                        sections.add(section)
-                    }
+    private fun handleOriginalTweetSuccess(result: List<ForYouTweet>) {
+        Timber.d("Tweet Gotten")
+        if (result.isNotEmpty()) {
+            val sections = arrayListOf<Section>()
 
-                    _sectionList.value = sections
-                } else {
-                    _sectionList.value = emptyList()
-                }
+            val categoryList = mutableMap.values.distinct().map { category -> category }
+            // Adding category here so I can use to filter later on
+            val presentation = result.map { aa -> getPresentation(aa.toPresentation()) }
+
+            categoryList.forEach { category ->
+                val section = Section()
+                val sectionItems =
+                    presentation.filter { tweetPresentation -> tweetPresentation.category == category }
+                val sectionData =
+                    sectionItems.map { categoryItem -> SingleCategoryTweetItem(categoryItem) }
+                section.add(CategoryTweetItem(category, sectionData))
+                sections.add(section)
+            }
+
+            _forYouView.update {
+                it.copy(loading = false, response = sections)
+            }
+        } else {
+            _forYouView.update {
+                it.copy(loading = false, response = emptyList())
             }
         }
     }
@@ -85,6 +105,9 @@ class ForYouViewModel @Inject constructor(
     }
 
     fun getForYouTweets() {
+        _forYouView.update {
+            it.copy(loading = true)
+        }
         getForYouTweetsUseCase(job, GetForYouTweetsUseCase.None()) {
             it.fold(
                 ::handleForYouFailure,
@@ -94,7 +117,9 @@ class ForYouViewModel @Inject constructor(
     }
 
     private fun handleForYouFailure(failure: Failure) {
-        // TODO:Update UI ask user to refresh
+        _forYouView.update {
+            it.copy(loading = false, error = "Something went wrong.")
+        }
     }
 
     private fun handleForYouSuccess(response: List<Pair<String, List<String>>>) {
