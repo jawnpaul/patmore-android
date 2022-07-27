@@ -27,3 +27,10 @@ data class VideoMediaPresentation(
     val mediaUrl: String? = null,
     val mediaPreviewUrl: String? = null
 ) : TweetMediaPresentation()
+
+data class GifMediaPresentation(
+    val mediaKey: String,
+    val mediaType: String,
+    val mediaUrl: String? = null,
+    val mediaPreviewUrl: String? = null
+) : TweetMediaPresentation()

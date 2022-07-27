@@ -3,26 +3,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="350dp"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/category_image_view"
+        <RelativeLayout
+            android:id="@+id/media_relative_layout"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginStart="@dimen/sixteen"
             android:layout_marginTop="@dimen/sixteen"
-            android:layout_marginEnd="@dimen/sixteen"
-            android:adjustViewBounds="true"
-            android:scaleType="center"
-            app:shapeAppearanceOverlay="@style/fourRoundedEdgeImageView" />
+            android:layout_marginEnd="@dimen/sixteen">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/category_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:adjustViewBounds="true"
+                android:scaleType="center"
+                app:shapeAppearanceOverlay="@style/fourRoundedEdgeImageView" />
+
+            <ImageView
+                android:id="@+id/play_image_view"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_baseline_play_circle_outline_24"
+                android:visibility="gone"
+                app:tint="@color/twitterBlue" />
+
+            <ImageView
+                android:id="@+id/gif_play_button"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/sixteen"
+                android:layout_marginBottom="@dimen/sixteen"
+                android:src="@drawable/ic_baseline_gif_24"
+                android:visibility="gone"
+                app:tint="@color/twitterBlue" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/category_tweet_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/media_relative_layout"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="@dimen/sixteen"
             android:layout_marginTop="@dimen/sixteen"
             android:layout_marginEnd="@dimen/sixteen"
@@ -34,6 +67,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="32dp"
+            android:layout_below="@id/category_tweet_text"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="@dimen/sixteen"
             android:layout_marginTop="@dimen/sixteen"
             android:layout_marginEnd="@dimen/sixteen"
@@ -55,5 +90,5 @@
                 android:src="@drawable/ic_twitter_logo" />
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

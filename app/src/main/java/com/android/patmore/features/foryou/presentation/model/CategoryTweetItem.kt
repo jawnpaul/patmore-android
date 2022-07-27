@@ -1,14 +1,15 @@
 package com.android.patmore.features.foryou.presentation.model
 
 import com.android.patmore.R
+import com.android.patmore.core.utility.capitalizeFirstLetter
 import com.android.patmore.databinding.SingleCategoryItemBinding
 import com.xwray.groupie.GroupieAdapter
 import com.xwray.groupie.databinding.BindableItem
 
-class CategoryTweetItem(val category: String, val items: List<SingleCategoryTweetItem>) :
+class CategoryTweetItem(private val category: String, private val items: List<SingleCategoryTweetItem>) :
     BindableItem<SingleCategoryItemBinding>() {
     override fun bind(binding: SingleCategoryItemBinding, p1: Int) {
-        binding.header.text = category
+        binding.header.text = category.lowercase().capitalizeFirstLetter()
 
         binding.categoryTweetRecyclerView.adapter = GroupieAdapter().apply {
             addAll(items)

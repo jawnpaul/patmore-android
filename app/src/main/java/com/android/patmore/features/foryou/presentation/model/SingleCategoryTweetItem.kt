@@ -1,11 +1,13 @@
 package com.android.patmore.features.foryou.presentation.model
 
+import android.view.View
 import coil.load
 import com.android.patmore.R
 import com.android.patmore.databinding.SingleCategoryTweetItemBinding
 import com.xwray.groupie.databinding.BindableItem
 
-class SingleCategoryTweetItem(val forYouTweetPresentation: ForYouTweetPresentation) : BindableItem<SingleCategoryTweetItemBinding>() {
+class SingleCategoryTweetItem(private val forYouTweetPresentation: ForYouTweetPresentation) :
+    BindableItem<SingleCategoryTweetItemBinding>() {
     override fun bind(binding: SingleCategoryTweetItemBinding, p1: Int) {
         binding.categoryTweetText.text = forYouTweetPresentation.text
         binding.categoryTweetTextTime.text = forYouTweetPresentation.created
@@ -22,6 +24,14 @@ class SingleCategoryTweetItem(val forYouTweetPresentation: ForYouTweetPresentati
                         }
                     }
                     is VideoMediaPresentation -> {
+
+                        binding.playImageView.visibility = View.VISIBLE
+                        binding.categoryImageView.load(first.mediaPreviewUrl)
+                    }
+                    is GifMediaPresentation -> {
+                        binding.gifPlayButton.visibility = View.VISIBLE
+                        binding.playImageView.visibility = View.VISIBLE
+                        binding.categoryImageView.load(first.mediaPreviewUrl)
                     }
                 }
             }

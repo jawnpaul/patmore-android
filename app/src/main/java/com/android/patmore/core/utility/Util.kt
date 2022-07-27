@@ -3,6 +3,7 @@ package com.android.patmore.core.utility
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import timber.log.Timber
 import java.text.SimpleDateFormat
+import java.util.Locale
 
 fun String.toMillis(): Long {
     val dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
@@ -29,3 +30,11 @@ fun Long.toRelativeTime(): String {
         res
     }
 }
+
+fun String.capitalizeFirstLetter() = this.split(" ").joinToString(" ") {
+    it.replaceFirstChar { char ->
+        if (char.isLowerCase()) char.titlecase(
+            Locale.getDefault()
+        ) else char.toString()
+    }
+}.trim()

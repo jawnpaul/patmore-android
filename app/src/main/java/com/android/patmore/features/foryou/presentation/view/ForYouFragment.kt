@@ -47,24 +47,15 @@ class ForYouFragment : Fragment() {
         binding.mainRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
-        /*forYouViewModel.forYouView.observe(viewLifecycleOwner) {
-            if (it.isNotEmpty()) {
-                val groupieAdapter = GroupieAdapter()
-                binding.mainRecyclerView.adapter = groupieAdapter
-                groupieAdapter.addAll(it)
-            } else {
-                val groupieAdapter = GroupieAdapter()
-                binding.mainRecyclerView.adapter = groupieAdapter
-            }
-        }*/
-
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 forYouViewModel.forYouView.collect { state ->
                     if (state.loading) {
                         binding.shimmerLayout.visibility = View.VISIBLE
+                        binding.mainRecyclerView.visibility = View.GONE
                     } else {
                         binding.shimmerLayout.visibility = View.GONE
+                        binding.mainRecyclerView.visibility = View.VISIBLE
                     }
 
                     state.error?.let { error ->

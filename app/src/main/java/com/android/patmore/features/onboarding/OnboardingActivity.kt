@@ -88,10 +88,10 @@ class OnboardingActivity : AppCompatActivity() {
         binding.animeChip.setOnClickListener {
             enableButton()
 
-            if (categories.contains("anime and comics")) {
-                categories.remove("anime and comics")
+            if (categories.contains("anime")) {
+                categories.remove("anime")
             } else {
-                categories.add("anime and comics")
+                categories.add("anime")
             }
         }
 

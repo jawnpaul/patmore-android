@@ -26,7 +26,7 @@ data class TweetMedia(
     @field:Json(name = "media_key") var mediaKey: String,
     @field:Json(name = "type") var type: String,
     @field:Json(name = "url") var url: String,
-    @field:Json(name = "preview_url") var previewUrl: String,
+    @field:Json(name = "preview_image_url") var previewUrl: String?,
 ) {
     fun toDomain() =
         com.android.patmore.features.foryou.domain.model.TweetMedia(mediaKey, type, url, previewUrl)
