@@ -1,5 +1,7 @@
 package com.android.patmore.core.utility
 
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -38,3 +40,7 @@ fun String.capitalizeFirstLetter() = this.split(" ").joinToString(" ") {
         ) else char.toString()
     }
 }.trim()
+
+fun NavController.safeNavigate(direction: NavDirections) {
+    currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
+}

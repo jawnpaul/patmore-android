@@ -6,11 +6,18 @@ import com.android.patmore.R
 import com.android.patmore.databinding.SingleCategoryTweetItemBinding
 import com.xwray.groupie.databinding.BindableItem
 
-class SingleCategoryTweetItem(private val forYouTweetPresentation: ForYouTweetPresentation) :
+class SingleCategoryTweetItem(
+    private val forYouTweetPresentation: ForYouTweetPresentation,
+    val onClick: (ForYouTweetPresentation) -> Unit,
+) :
     BindableItem<SingleCategoryTweetItemBinding>() {
     override fun bind(binding: SingleCategoryTweetItemBinding, p1: Int) {
         binding.categoryTweetText.text = forYouTweetPresentation.text
         binding.categoryTweetTextTime.text = forYouTweetPresentation.created
+
+        binding.root.setOnClickListener {
+            onClick(forYouTweetPresentation)
+        }
 
         forYouTweetPresentation.mediaList?.let {
             if (it.isNotEmpty()) {

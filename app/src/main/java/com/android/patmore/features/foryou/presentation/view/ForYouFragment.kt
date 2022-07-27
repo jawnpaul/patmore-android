@@ -10,8 +10,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.patmore.core.utility.safeNavigate
 import com.android.patmore.databinding.FragmentForYouBinding
 import com.android.patmore.features.foryou.presentation.adapter.CategoryPagerAdapter
 import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
@@ -72,6 +74,38 @@ class ForYouFragment : Fragment() {
                             binding.mainRecyclerView.adapter = groupieAdapter
                         }
                     }
+                }
+                /*forYouViewModel.singleTweet.collect { state ->
+                    Timber.d(state.toString())
+                    when(state.isShown){
+                        true -> {
+                            Timber.d("True")
+
+
+                            //forYouViewModel.tweetShown()
+                        }
+                        false -> {
+
+                        }
+                    }
+
+                    state.data?.let {
+                        val action = ForYouFragmentDirections.actionForYouFragmentToSingleForYouTweetFragment()
+                        findNavController().safeNavigate(action)
+                    }
+                }*/
+            }
+        }
+
+        forYouViewModel.selectedTweet.observe(viewLifecycleOwner) {
+            when (it.isShown) {
+                true -> {
+                    val action = ForYouFragmentDirections.actionForYouFragmentToSingleForYouTweetFragment()
+                    findNavController().safeNavigate(action)
+
+                    forYouViewModel.tweetShown()
+                }
+                false -> {
                 }
             }
         }

@@ -4,4 +4,6 @@ import android.widget.ImageView
 
 interface IImageLoader {
     fun loadImage(url: String, imageView: ImageView)
+
+    fun loadCircleImage(url: String, imageView: ImageView)
 }

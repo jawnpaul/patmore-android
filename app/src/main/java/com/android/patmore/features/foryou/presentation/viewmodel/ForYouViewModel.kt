@@ -13,6 +13,7 @@ import com.android.patmore.features.foryou.presentation.model.CategoryTweetItem
 import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
 import com.android.patmore.features.foryou.presentation.model.SingleCategoryTweetItem
 import com.android.patmore.features.foryou.presentation.state.ForYouView
+import com.android.patmore.features.foryou.presentation.state.SingleTweetView
 import com.xwray.groupie.Section
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -37,6 +38,12 @@ class ForYouViewModel @Inject constructor(
 
     private val _forYouView = MutableStateFlow(ForYouView())
     val forYouView: StateFlow<ForYouView> = _forYouView
+
+    private val _selectedTweet = MutableLiveData<SingleTweetView>()
+    val selectedTweet get() = _selectedTweet
+
+    private val _singleTweet = MutableStateFlow(SingleTweetView())
+    val singleTweet: StateFlow<SingleTweetView> = _singleTweet
 
     private val mutableMap = mutableMapOf<String, String>()
 
@@ -80,7 +87,14 @@ class ForYouViewModel @Inject constructor(
                 val sectionItems =
                     presentation.filter { tweetPresentation -> tweetPresentation.category == category }
                 val sectionData =
-                    sectionItems.map { categoryItem -> SingleCategoryTweetItem(categoryItem) }
+                    sectionItems.map { categoryItem ->
+                        SingleCategoryTweetItem(
+                            categoryItem,
+                            onClick = {
+                                selectedTweet(it)
+                            }
+                        )
+                    }
                 section.add(CategoryTweetItem(category, sectionData))
                 sections.add(section)
             }
@@ -140,5 +154,13 @@ class ForYouViewModel @Inject constructor(
 
     private fun getPresentation(presentation: ForYouTweetPresentation): ForYouTweetPresentation {
         return presentation.copy(category = mutableMap[presentation.id])
+    }
+
+    private fun selectedTweet(forYouTweetPresentation: ForYouTweetPresentation) {
+        _selectedTweet.value = SingleTweetView(isShown = true, data = forYouTweetPresentation)
+    }
+
+    fun tweetShown() {
+        _selectedTweet.value = selectedTweet.value?.copy(isShown = false)
     }
 }
