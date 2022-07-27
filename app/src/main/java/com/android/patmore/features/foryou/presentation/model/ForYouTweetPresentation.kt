@@ -1,6 +1,7 @@
 package com.android.patmore.features.foryou.presentation.model
 
 import android.os.Parcelable
+import com.android.patmore.features.foryou.data.remote.model.TweetAuthor
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -9,7 +10,8 @@ data class ForYouTweetPresentation(
     val id: String,
     val created: String,
     val mediaList: List<TweetMediaPresentation>? = null,
-    val category: String? = null
+    val category: String? = null,
+    val tweetAuthor: TweetAuthor? = null
 ) : Parcelable
 
 @Parcelize

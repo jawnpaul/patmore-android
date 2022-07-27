@@ -12,5 +12,6 @@ interface TwitterApiService {
         @Query("expansions") expansions: String,
         @Query("media.fields") mediaFields: String,
         @Query("tweet.fields") fields: String,
+        @Query("user.fields") userFields: String,
     ): Response<SingleTweetResponse>
 }

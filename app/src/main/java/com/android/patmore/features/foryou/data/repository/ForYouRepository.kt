@@ -8,6 +8,7 @@ import com.android.patmore.core.utility.SharedPreferences
 import com.android.patmore.features.foryou.data.remote.model.ForYouData
 import com.android.patmore.features.foryou.data.remote.model.Res
 import com.android.patmore.features.foryou.data.remote.model.SingleTweetResponse
+import com.android.patmore.features.foryou.data.remote.model.TweetAuthor
 import com.android.patmore.features.foryou.domain.model.ForYouTweet
 import com.android.patmore.features.foryou.domain.model.TweetMedia
 import com.android.patmore.features.foryou.domain.repository.IForYouRepository
@@ -56,13 +57,15 @@ class ForYouRepository @Inject constructor(
         flow {
             try {
                 val fields = "attachments,created_at"
-                val expansions = "attachments.media_keys"
+                val expansions = "attachments.media_keys,author_id"
                 val mediaFields = "type,media_key,preview_image_url,url"
+                val userFields = "profile_image_url,name,username,id"
                 val res = twitterApiService.getTweet(
                     id,
                     fields = fields,
                     expansions = expansions,
-                    mediaFields = mediaFields
+                    mediaFields = mediaFields,
+                    userFields = userFields
                 )
 
                 when (res.isSuccessful) {
@@ -99,7 +102,11 @@ class ForYouRepository @Inject constructor(
             if (sharedPreferences.getUserCategories() != null) {
                 try {
 
-                    val res = patmoreApiService.getUserSubscriptionTweets(sharedPreferences.getUserCategories()!!, page = 1)
+                    val res =
+                        patmoreApiService.getUserSubscriptionTweets(
+                            sharedPreferences.getUserCategories()!!,
+                            page = 1
+                        )
                     when (res.isSuccessful) {
                         true -> {
                             res.body()?.let { it ->
@@ -132,6 +139,16 @@ class ForYouRepository @Inject constructor(
 
     private fun mapToDomain(data: SingleTweetResponse, response: Res): ForYouTweet {
         val keys = response.attachment?.mediaKeys
+        val authors = data.includes?.tweetAuthors
+        val ax = authors?.filter { it.id == response.authorId }?.get(0)
+        val tweetAuthor = ax?.let {
+            TweetAuthor(
+                name = it.name,
+                userName = "@" + it.userName,
+                profileImage = it.profileImage.replace("_normal", ""),
+                id = it.id
+            )
+        }
         val media = mutableListOf<TweetMedia>()
         data.includes?.media?.forEach {
             if (keys?.contains(it.mediaKey) == true) {
@@ -143,7 +160,8 @@ class ForYouRepository @Inject constructor(
             id = response.id,
             text = response.text,
             tweetMedia = media,
-            created = response.created
+            created = response.created,
+            tweetAuthor = tweetAuthor
         )
     }
 

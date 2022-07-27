@@ -179,6 +179,14 @@ class SingleForYouTweetFragment : Fragment() {
                 it.mediaList?.let { it1 -> renderMedia(binding.singleTweetMediaContainer, it1) }
                 binding.toolbarTitle.text = it.category?.lowercase()?.capitalizeFirstLetter()
                 binding.singleTweetText.text = it.text
+
+                it.tweetAuthor?.let { tweetAuthor ->
+
+                    binding.userHandleTextView.text = tweetAuthor.userName
+                    binding.userNameTextView.text = tweetAuthor.name
+
+                    imageLoader.loadCircleImage(tweetAuthor.profileImage, binding.profileImageView)
+                }
             }
         }
 
