@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.android.patmore.R
 import com.android.patmore.core.utility.SharedPreferences
+import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.features.authentication.presentation.AuthenticationViewModel
 import com.android.patmore.features.home.presentation.view.MainActivity
 import com.android.patmore.features.onboarding.OnboardingActivity
@@ -20,6 +21,11 @@ class SplashActivity : AppCompatActivity() {
     private val splashTimeout = 2000L
 
     private val authenticationViewModel: AuthenticationViewModel by viewModels()
+
+    private val TAG = SplashActivity::class.simpleName
+
+    @Inject
+    lateinit var mixPanelUtil: MixPanelUtil
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -43,5 +49,7 @@ class SplashActivity : AppCompatActivity() {
             },
             splashTimeout
         )
+
+        mixPanelUtil.logScreen(TAG)
     }
 }

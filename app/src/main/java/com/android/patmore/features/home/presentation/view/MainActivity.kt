@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.android.patmore.R
 import com.android.patmore.core.utility.SharedPreferences
+import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.databinding.ActivityMainBinding
 import com.android.patmore.features.foryou.presentation.viewmodel.ForYouViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,6 +19,11 @@ class MainActivity : AppCompatActivity() {
     private val forYouViewModel: ForYouViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
+
+    private val TAG = MainActivity::class.simpleName
+
+    @Inject
+    lateinit var mixPanelUtil: MixPanelUtil
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -35,5 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         // forYouViewModel.getTechnologyTweets()
         forYouViewModel.getForYouTweets()
+
+        mixPanelUtil.logScreen(TAG)
     }
 }

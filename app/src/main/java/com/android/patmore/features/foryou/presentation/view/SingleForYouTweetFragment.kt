@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.android.patmore.R
 import com.android.patmore.core.imageloader.ImageLoader
+import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.core.utility.capitalizeFirstLetter
 import com.android.patmore.databinding.FragmentSingleForYouTweetBinding
 import com.android.patmore.features.foryou.presentation.model.GifMediaPresentation
@@ -28,6 +29,11 @@ class SingleForYouTweetFragment : Fragment() {
     val binding get() = _binding!!
 
     private val forYouViewModel: ForYouViewModel by activityViewModels()
+
+    private val TAG = SingleForYouTweetFragment::class.simpleName
+
+    @Inject
+    lateinit var mixPanelUtil: MixPanelUtil
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -193,5 +199,7 @@ class SingleForYouTweetFragment : Fragment() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }
+
+        mixPanelUtil.logScreen(TAG)
     }
 }

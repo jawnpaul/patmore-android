@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.core.utility.safeNavigate
 import com.android.patmore.databinding.FragmentForYouBinding
 import com.android.patmore.features.foryou.presentation.adapter.CategoryPagerAdapter
@@ -22,6 +23,7 @@ import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ForYouFragment : Fragment() {
@@ -29,6 +31,11 @@ class ForYouFragment : Fragment() {
     private var _binding: FragmentForYouBinding? = null
     private val binding get() = _binding!!
     private val forYouViewModel: ForYouViewModel by activityViewModels()
+
+    private val TAG = ForYouFragment::class.simpleName
+
+    @Inject
+    lateinit var mixPanelUtil: MixPanelUtil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,6 +116,8 @@ class ForYouFragment : Fragment() {
                 }
             }
         }
+
+        mixPanelUtil.logScreen(TAG)
     }
 
     private fun getFragment(forYouTweetPresentation: ForYouTweetPresentation): CategoryFragment {

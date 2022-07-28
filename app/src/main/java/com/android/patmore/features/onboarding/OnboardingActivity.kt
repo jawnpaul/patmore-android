@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.android.patmore.core.utility.SharedPreferences
+import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.databinding.ActivityOnboardingBinding
 import com.android.patmore.features.authentication.presentation.AuthenticationViewModel
 import com.android.patmore.features.home.presentation.view.MainActivity
@@ -25,6 +26,11 @@ class OnboardingActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
+    private val TAG = OnboardingActivity::class.simpleName
+
+    @Inject
+    lateinit var mixPanelUtil: MixPanelUtil
 
     private val authenticationViewModel: AuthenticationViewModel by viewModels()
     private val subscriptionViewModel: SubscriptionViewModel by viewModels()
@@ -126,6 +132,8 @@ class OnboardingActivity : AppCompatActivity() {
                 }
             }
         }
+
+        mixPanelUtil.logScreen(TAG)
     }
 
     private fun enableButton() {

@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.android.patmore.R
 import com.android.patmore.core.imageloader.ImageLoader
+import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
 import com.android.patmore.features.foryou.presentation.model.ImageMediaPresentation
 import com.android.patmore.features.foryou.presentation.model.VideoMediaPresentation
@@ -20,6 +21,11 @@ private const val ARG_PARAM1 = "param1"
 @AndroidEntryPoint
 class CategoryFragment : Fragment() {
     private var param1: ForYouTweetPresentation? = null
+
+    private val TAG = CategoryFragment::class.simpleName
+
+    @Inject
+    lateinit var mixPanelUtil: MixPanelUtil
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -63,6 +69,8 @@ class CategoryFragment : Fragment() {
                 }
             }
         }
+
+        mixPanelUtil.logScreen(TAG)
     }
 
     companion object {
