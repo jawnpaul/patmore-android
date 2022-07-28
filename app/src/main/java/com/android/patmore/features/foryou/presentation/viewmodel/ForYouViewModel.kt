@@ -1,5 +1,6 @@
 package com.android.patmore.features.foryou.presentation.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.patmore.core.exception.Failure
@@ -46,6 +47,9 @@ class ForYouViewModel @Inject constructor(
     val singleTweet: StateFlow<SingleTweetView> = _singleTweet
 
     private val mutableMap = mutableMapOf<String, String>()
+
+    private val _showBottomNavBar = MutableLiveData<Boolean>()
+    val showBottomNav: LiveData<Boolean> get() = _showBottomNavBar
 
     fun getTechnologyTweets() {
         getCategoryTweetUseCase(job, "technology") {
@@ -162,5 +166,9 @@ class ForYouViewModel @Inject constructor(
 
     fun tweetShown() {
         _selectedTweet.value = selectedTweet.value?.copy(isShown = false)
+    }
+
+    fun showBottomNavBar(show: Boolean) {
+        _showBottomNavBar.value = show
     }
 }

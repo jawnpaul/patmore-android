@@ -1,6 +1,7 @@
 package com.android.patmore.features.home.presentation.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -38,6 +39,16 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_home)
 
         navView.setupWithNavController(navController)
+
+        forYouViewModel.showBottomNav.observe(
+            this
+        ) {
+            if (it) {
+                binding.navView.visibility = View.VISIBLE
+            } else {
+                binding.navView.visibility = View.GONE
+            }
+        }
 
         // forYouViewModel.getTechnologyTweets()
         forYouViewModel.getForYouTweets()

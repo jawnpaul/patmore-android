@@ -53,6 +53,7 @@ class SingleForYouTweetFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        forYouViewModel.showBottomNavBar(false)
 
         val mediaOne = view.findViewById(R.id.mediaOne) as ShapeableImageView
         val twoMediaContainer =
