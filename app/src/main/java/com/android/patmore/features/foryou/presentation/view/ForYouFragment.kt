@@ -108,10 +108,26 @@ class ForYouFragment : Fragment() {
         forYouViewModel.selectedTweet.observe(viewLifecycleOwner) {
             when (it.isShown) {
                 true -> {
-                    val action = ForYouFragmentDirections.actionForYouFragmentToSingleForYouTweetFragment()
+                    val action =
+                        ForYouFragmentDirections.actionForYouFragmentToSingleForYouTweetFragment()
                     findNavController().safeNavigate(action)
 
                     forYouViewModel.tweetShown()
+                }
+                false -> {
+                }
+            }
+        }
+
+        forYouViewModel.selectedView.observe(viewLifecycleOwner) {
+            when (it.isShown) {
+                true -> {
+
+                    val action =
+                        ForYouFragmentDirections.actionForYouFragmentToAllCategoryTweetFragment()
+                    findNavController().safeNavigate(action)
+
+                    forYouViewModel.categoryShown()
                 }
                 false -> {
                 }

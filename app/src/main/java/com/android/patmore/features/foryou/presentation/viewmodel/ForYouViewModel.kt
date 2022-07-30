@@ -13,8 +13,10 @@ import com.android.patmore.features.foryou.domain.usecases.GetSingleOriginalTwee
 import com.android.patmore.features.foryou.presentation.model.CategoryTweetItem
 import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
 import com.android.patmore.features.foryou.presentation.model.SingleCategoryTweetItem
+import com.android.patmore.features.foryou.presentation.state.CategoryTweetView
 import com.android.patmore.features.foryou.presentation.state.ForYouView
 import com.android.patmore.features.foryou.presentation.state.SingleTweetView
+import com.android.patmore.features.foryou.presentation.view.CategoryFragment
 import com.xwray.groupie.Section
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -43,6 +45,12 @@ class ForYouViewModel @Inject constructor(
     private val _selectedTweet = MutableLiveData<SingleTweetView>()
     val selectedTweet get() = _selectedTweet
 
+    private val _selectedView = MutableLiveData<CategoryTweetView>()
+    val selectedView get() = _selectedView
+
+    private val _selectedCategory = MutableLiveData<String?>()
+    val selectedCategory get() = _selectedCategory
+
     private val _singleTweet = MutableStateFlow(SingleTweetView())
     val singleTweet: StateFlow<SingleTweetView> = _singleTweet
 
@@ -50,6 +58,12 @@ class ForYouViewModel @Inject constructor(
 
     private val _showBottomNavBar = MutableLiveData<Boolean>()
     val showBottomNav: LiveData<Boolean> get() = _showBottomNavBar
+
+    private val _allPresentation = MutableLiveData<List<ForYouTweetPresentation>>()
+    val allPresentation get() = _allPresentation
+
+    private val _selectedCategoryFragment = MutableLiveData<List<CategoryFragment>>()
+    val selectedCategoryFragment get() = _selectedCategoryFragment
 
     fun getTechnologyTweets() {
         getCategoryTweetUseCase(job, "technology") {
@@ -99,13 +113,22 @@ class ForYouViewModel @Inject constructor(
                             }
                         )
                     }
-                section.add(CategoryTweetItem(category, sectionData))
+                section.add(
+                    CategoryTweetItem(
+                        category, sectionData,
+                        onClick = {
+                            getAllCategory(it)
+                        }
+                    )
+                )
                 sections.add(section)
             }
 
             _forYouView.update {
                 it.copy(loading = false, response = sections)
             }
+
+            _allPresentation.value = presentation
         } else {
             _forYouView.update {
                 it.copy(loading = false, response = emptyList())
@@ -170,5 +193,24 @@ class ForYouViewModel @Inject constructor(
 
     fun showBottomNavBar(show: Boolean) {
         _showBottomNavBar.value = show
+    }
+
+    private fun getAllCategory(category: String) {
+        _selectedCategory.value = category
+        _allPresentation.value?.let {
+            val matches = it.filter { aa -> aa.category == category }
+            val fragments = matches.map { aa -> getFragment(aa) }
+            _selectedCategoryFragment.value = fragments
+
+            _selectedView.value = CategoryTweetView(isShown = true, data = fragments)
+        }
+    }
+
+    fun categoryShown() {
+        _selectedView.value = selectedView.value?.copy(isShown = false)
+    }
+
+    private fun getFragment(forYouTweetPresentation: ForYouTweetPresentation): CategoryFragment {
+        return CategoryFragment.newInstance(forYouTweetPresentation)
     }
 }
