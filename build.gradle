@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         classpath BuildPlugins.androidGradlePlugin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20"
+        classpath BuildPlugins.kotlinGradlePlugin
         classpath BuildPlugins.hiltGradlePlugin
         classpath BuildPlugins.jacocoCorePlugin
         classpath BuildPlugins.navArgs
