@@ -9,7 +9,7 @@
         android:id="@+id/forYouFragment"
         android:name="com.android.patmore.features.foryou.presentation.view.ForYouFragment"
         android:label="fragment_for_you"
-        tools:layout="@layout/fragment_for_you" >
+        tools:layout="@layout/fragment_for_you">
         <action
             android:id="@+id/action_forYouFragment_to_singleForYouTweetFragment"
             app:destination="@id/singleForYouTweetFragment"
@@ -19,7 +19,11 @@
             app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_forYouFragment_to_allCategoryTweetFragment"
-            app:destination="@id/allCategoryTweetFragment" />
+            app:destination="@id/allCategoryTweetFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/customFragment"

@@ -17,7 +17,6 @@ import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.core.utility.safeNavigate
 import com.android.patmore.databinding.FragmentForYouBinding
 import com.android.patmore.features.foryou.presentation.adapter.CategoryPagerAdapter
-import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
 import com.android.patmore.features.foryou.presentation.viewmodel.ForYouViewModel
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -135,9 +134,5 @@ class ForYouFragment : Fragment() {
         }
 
         mixPanelUtil.logScreen(TAG)
-    }
-
-    private fun getFragment(forYouTweetPresentation: ForYouTweetPresentation): CategoryFragment {
-        return CategoryFragment.newInstance(forYouTweetPresentation)
     }
 }

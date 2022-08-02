@@ -5,22 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.android.patmore.R
 import com.android.patmore.core.imageloader.ImageLoader
 import com.android.patmore.core.utility.analytics.MixPanelUtil
-import com.android.patmore.core.utility.capitalizeFirstLetter
 import com.android.patmore.databinding.FragmentCategoryBinding
-import com.android.patmore.features.foryou.presentation.model.*
+import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
+import com.android.patmore.features.foryou.presentation.model.GifMediaPresentation
+import com.android.patmore.features.foryou.presentation.model.ImageMediaPresentation
+import com.android.patmore.features.foryou.presentation.model.TweetMediaPresentation
+import com.android.patmore.features.foryou.presentation.model.VideoMediaPresentation
 import com.google.android.material.imageview.ShapeableImageView
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 private const val ARG_PARAM1 = "param1"
 
-@AndroidEntryPoint
 class CategoryFragment : Fragment() {
     private var param1: ForYouTweetPresentation? = null
 
@@ -29,11 +28,9 @@ class CategoryFragment : Fragment() {
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var mixPanelUtil: MixPanelUtil
+    private lateinit var mixPanelUtil: MixPanelUtil
 
-    @Inject
-    lateinit var imageLoader: ImageLoader
+    private lateinit var imageLoader: ImageLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +50,8 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        imageLoader = ImageLoader(requireContext())
+        mixPanelUtil = MixPanelUtil(requireContext())
 
         val mediaOne = view.findViewById(R.id.mediaOne) as ShapeableImageView
         val twoMediaContainer =
@@ -183,7 +182,7 @@ class CategoryFragment : Fragment() {
         mixPanelUtil.logScreen(TAG)
     }
 
-    companion object {
+    /*companion object {
         @JvmStatic
         fun newInstance(param1: ForYouTweetPresentation) =
             CategoryFragment().apply {
@@ -191,5 +190,5 @@ class CategoryFragment : Fragment() {
                     putParcelable(ARG_PARAM1, param1)
                 }
             }
-    }
+    }*/
 }

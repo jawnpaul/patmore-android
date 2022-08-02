@@ -1,5 +1,6 @@
 package com.android.patmore.features.foryou.presentation.viewmodel
 
+import android.os.Bundle
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -211,6 +212,13 @@ class ForYouViewModel @Inject constructor(
     }
 
     private fun getFragment(forYouTweetPresentation: ForYouTweetPresentation): CategoryFragment {
-        return CategoryFragment.newInstance(forYouTweetPresentation)
+        val bundle = Bundle()
+        bundle.apply {
+            putParcelable("param1", forYouTweetPresentation)
+        }
+        val fragment = CategoryFragment().apply {
+            arguments = bundle
+        }
+        return fragment
     }
 }

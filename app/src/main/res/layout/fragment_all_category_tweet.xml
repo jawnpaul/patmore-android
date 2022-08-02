@@ -28,8 +28,10 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            android:layout_height="10dp"
+            android:visibility="visible"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="fill" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"

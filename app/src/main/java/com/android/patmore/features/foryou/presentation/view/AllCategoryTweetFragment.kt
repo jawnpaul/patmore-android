@@ -14,6 +14,8 @@ import com.android.patmore.core.utility.capitalizeFirstLetter
 import com.android.patmore.features.foryou.presentation.adapter.CategoryPagerAdapter
 import com.android.patmore.features.foryou.presentation.viewmodel.ForYouViewModel
 import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,6 +47,7 @@ class AllCategoryTweetFragment : Fragment() {
 
         val toolbarTitle: TextView = view.findViewById(R.id.all_toolbar_title)
         val toolbar: MaterialToolbar = view.findViewById(R.id.all_toolbar)
+        val tabLayout: TabLayout = view.findViewById(R.id.tab_layout)
 
         forYouViewModel.selectedCategory.observe(viewLifecycleOwner) {
             toolbarTitle.text = it?.lowercase()?.capitalizeFirstLetter()
@@ -58,6 +61,8 @@ class AllCategoryTweetFragment : Fragment() {
             categoryPagerAdapter = CategoryPagerAdapter(this, it)
 
             viewPager.adapter = categoryPagerAdapter
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            }.attach()
         }
     }
 }
