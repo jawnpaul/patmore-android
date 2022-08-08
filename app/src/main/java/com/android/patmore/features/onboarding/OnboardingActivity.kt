@@ -42,26 +42,46 @@ class OnboardingActivity : AppCompatActivity() {
 
         authenticationViewModel.getToken()
 
-        binding.technologyChip.setOnClickListener {
+        /*binding.technologyChip.setOnClickListener {
             enableButton()
             if (categories.contains("technology")) {
                 categories.remove("technology")
             } else {
                 categories.add("technology")
             }
+        }*/
+
+        binding.technologyChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+
+            if (checkedIds.isEmpty()) {
+                categories.remove("technology")
+            } else {
+                categories.add("technology")
+            }
+            enableButton()
         }
 
-        binding.businessChip.setOnClickListener {
-            enableButton()
+        /* binding.businessChip.setOnClickListener {
+             enableButton()
 
-            if (categories.contains("business")) {
+             if (categories.contains("business")) {
+                 categories.remove("business")
+             } else {
+                 categories.add("business")
+             }
+         }*/
+
+        binding.businessChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+
+            if (checkedIds.isEmpty()) {
                 categories.remove("business")
             } else {
                 categories.add("business")
             }
+            enableButton()
         }
 
-        binding.sportChip.setOnClickListener {
+        /*binding.sportChip.setOnClickListener {
             enableButton()
 
             if (categories.contains("sport")) {
@@ -69,9 +89,19 @@ class OnboardingActivity : AppCompatActivity() {
             } else {
                 categories.add("sport")
             }
+        }*/
+
+        binding.sportChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+
+            if (checkedIds.isEmpty()) {
+                categories.remove("sport")
+            } else {
+                categories.add("sport")
+            }
+            enableButton()
         }
 
-        binding.musicChip.setOnClickListener {
+        /*binding.musicChip.setOnClickListener {
             enableButton()
 
             if (categories.contains("music")) {
@@ -79,9 +109,19 @@ class OnboardingActivity : AppCompatActivity() {
             } else {
                 categories.add("music")
             }
+        }*/
+
+        binding.musicChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+
+            if (checkedIds.isEmpty()) {
+                categories.remove("music")
+            } else {
+                categories.add("music")
+            }
+            enableButton()
         }
 
-        binding.travelChip.setOnClickListener {
+        /*binding.travelChip.setOnClickListener {
             enableButton()
 
             if (categories.contains("travel")) {
@@ -89,9 +129,18 @@ class OnboardingActivity : AppCompatActivity() {
             } else {
                 categories.add("travel")
             }
+        }*/
+
+        binding.travelChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                categories.remove("travel")
+            } else {
+                categories.add("travel")
+            }
+            enableButton()
         }
 
-        binding.animeChip.setOnClickListener {
+        /*binding.animeChip.setOnClickListener {
             enableButton()
 
             if (categories.contains("anime")) {
@@ -99,7 +148,25 @@ class OnboardingActivity : AppCompatActivity() {
             } else {
                 categories.add("anime")
             }
+        }*/
+
+        binding.animeChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+
+            if (checkedIds.isEmpty()) {
+                // nothing selected in group
+                // remove from set
+                categories.remove("anime")
+            } else {
+                // add to set
+                categories.add("anime")
+            }
+            enableButton()
         }
+
+        binding.artsChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+        }
+
+        // TODO:Add other categories in the backend and implement in app
 
         binding.onboardingButton.setOnClickListener {
             val list = categories.toList()
@@ -137,10 +204,7 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun enableButton() {
-        val enable =
-            binding.technologyChip.isChecked || binding.businessChip.isChecked ||
-                binding.sportChip.isChecked || binding.musicChip.isChecked || binding.travelChip.isChecked || binding.animeChip.isChecked
-        binding.onboardingButton.isEnabled = enable
+        binding.onboardingButton.isEnabled = categories.isNotEmpty()
     }
 
     private fun getCategoriesString(ids: List<String>): String {
