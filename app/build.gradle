@@ -182,6 +182,12 @@ dependencies {
     implementation Libraries.groupie
     implementation Libraries.groupieDataBinding
 
+    //StoriesProgress
+    implementation Libraries.storiesProgress
+
+    //Palette
+    implementation "com.android.support:palette-v7:28.0.0"
+
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore
     testImplementation TestLibraries.junit

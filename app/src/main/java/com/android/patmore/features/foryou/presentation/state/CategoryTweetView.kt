@@ -1,8 +1,8 @@
 package com.android.patmore.features.foryou.presentation.state
 
-import com.android.patmore.features.foryou.presentation.view.CategoryFragment
+import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
 
 data class CategoryTweetView(
     val isShown: Boolean = false,
-    val data: List<CategoryFragment>? = null
+    val data: List<ForYouTweetPresentation>? = null
 )

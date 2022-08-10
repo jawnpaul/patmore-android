@@ -2,7 +2,11 @@ package com.android.patmore.core.imageloader
 
 import android.content.Context
 import android.widget.ImageView
+import androidx.core.graphics.drawable.toBitmap
+import androidx.palette.graphics.Palette
+import coil.imageLoader
 import coil.load
+import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.bumptech.glide.Glide
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -19,5 +23,19 @@ class ImageLoader @Inject constructor(@ApplicationContext val context: Context) 
         imageView.load(url) {
             transformations(CircleCropTransformation())
         }
+    }
+
+    override fun getPalette(url: String, palette: (Palette?) -> Unit) {
+        val imageLoader = context.imageLoader
+        val request = ImageRequest.Builder(context)
+            .allowHardware(false)
+            .data(url)
+            .target { drawable ->
+                Palette.Builder(drawable.toBitmap()).generate {
+                    palette(it)
+                }
+            }
+            .build()
+        imageLoader.enqueue(request)
     }
 }

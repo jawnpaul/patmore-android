@@ -66,6 +66,12 @@ class ForYouViewModel @Inject constructor(
     private val _selectedCategoryFragment = MutableLiveData<List<CategoryFragment>>()
     val selectedCategoryFragment get() = _selectedCategoryFragment
 
+    private val _currentTweet = MutableLiveData<ForYouTweetPresentation>()
+    val currentTweet get() = _currentTweet
+
+    private val _currentPosition = MutableLiveData(0)
+    val currentPosition get() = _currentPosition
+
     fun getTechnologyTweets() {
         getCategoryTweetUseCase(job, "technology") {
             it.onFailure { failure -> Timber.e(failure.toString()) }
@@ -97,11 +103,16 @@ class ForYouViewModel @Inject constructor(
         if (result.isNotEmpty()) {
             val sections = arrayListOf<Section>()
 
+            val pp = result.map { aa -> getPresentation(aa.toPresentation()) }.filter { it.mediaList?.isNotEmpty() == true }
+
+            // The idea here is to remove tweets without media
+            val cl = pp.map { it.category }.distinct()
+
             val categoryList = mutableMap.values.distinct().map { category -> category }
             // Adding category here so I can use to filter later on
-            val presentation = result.map { aa -> getPresentation(aa.toPresentation()) }
+            val presentation = pp.map { aa -> getPresentation(aa) }
 
-            categoryList.forEach { category ->
+            cl.forEach { category ->
                 val section = Section()
                 val sectionItems =
                     presentation.filter { tweetPresentation -> tweetPresentation.category == category }
@@ -116,7 +127,7 @@ class ForYouViewModel @Inject constructor(
                     }
                 section.add(
                     CategoryTweetItem(
-                        category, sectionData,
+                        category.toString(), sectionData,
                         onClick = {
                             getAllCategory(it)
                         }
@@ -203,12 +214,23 @@ class ForYouViewModel @Inject constructor(
             val fragments = matches.map { aa -> getFragment(aa) }
             _selectedCategoryFragment.value = fragments
 
-            _selectedView.value = CategoryTweetView(isShown = true, data = fragments)
+            _selectedView.value = CategoryTweetView(isShown = true, data = matches)
+
+            setCurrentTweet(matches[0])
+            // setCurrentPosition(0)
         }
     }
 
     fun categoryShown() {
         _selectedView.value = selectedView.value?.copy(isShown = false)
+    }
+
+    fun setCurrentTweet(tweetPresentation: ForYouTweetPresentation) {
+        _currentTweet.value = tweetPresentation
+    }
+
+    fun setCurrentPosition(value: Int) {
+        _currentPosition.value = value
     }
 
     private fun getFragment(forYouTweetPresentation: ForYouTweetPresentation): CategoryFragment {
