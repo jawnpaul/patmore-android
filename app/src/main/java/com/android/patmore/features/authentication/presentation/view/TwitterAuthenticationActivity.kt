@@ -10,7 +10,6 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.android.patmore.BuildConfig
 import com.android.patmore.R
-import com.tycz.tweedle.lib.authentication.Authentication2
 import com.tycz.tweedle.lib.authentication.oauth.OAuthScope
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLDecoder
@@ -19,6 +18,8 @@ import java.net.URLDecoder
 class TwitterAuthenticationActivity : AppCompatActivity() {
 
     private val callbackUrl = BuildConfig.TWITTER_CALLBACK_URL
+
+    lateinit var oauthToken: String
 
     private val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
     val _state = (1..10)
@@ -40,6 +41,9 @@ class TwitterAuthenticationActivity : AppCompatActivity() {
         val clientId = intent.getStringExtra("clientId")!!
         val scopeList = listOf(OAuthScope.OfflineAccessScope, OAuthScope.TweetReadScope)
 
+        oauthToken = intent.getStringExtra("oauthToken")!!
+        val url = "https://api.twitter.com/oauth/authorize?oauth_token=$oauthToken&force_login=true"
+
         /*OAuthScope.OfflineAccessScope,
         OAuthScope.TweetReadScope,
         OAuthScope.TweetWriteScope,
@@ -54,10 +58,10 @@ class TwitterAuthenticationActivity : AppCompatActivity() {
         OAuthScope.LikeWrite,
         OAuthScope.LikeRead*/
 
-        val url = Authentication2.generateAuthenticationUrl(
+        /*val url = Authentication2.generateAuthenticationUrl(
             clientId,
             scopeList, callbackUrl, _state, challenge
-        )
+        )*/
 
         val webView: WebView = findViewById(R.id.auth_web_view)
         val webSettings = webView.settings
@@ -68,19 +72,22 @@ class TwitterAuthenticationActivity : AppCompatActivity() {
 
     private val webViewClient = object : WebViewClient() {
 
-        override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+        override fun shouldOverrideUrlLoading(
+            view: WebView?,
+            request: WebResourceRequest?,
+        ): Boolean {
             if (request!!.url.toString().startsWith(callbackUrl)) {
                 val decodedUrl = URLDecoder.decode(request.url.toString(), "UTF-8")
-                if (decodedUrl.contains("code=")) {
+                if (decodedUrl.contains("oauth_token=")) {
                     val uri = Uri.parse(decodedUrl)
-                    val code = uri.getQueryParameter("code")
-                    val state = uri.getQueryParameter("state")
+                    val authToken = uri.getQueryParameter("oauth_token")
+                    val authVerifier = uri.getQueryParameter("oauth_verifier")
 
-                    // Check to make sure the state generated matches the one returned in the url
-                    if (state == _state) {
+                    // Check to make sure oauth tokens match
+                    if (oauthToken == authToken) {
                         val data = Intent()
-                        data.putExtra("code", code)
-                        data.putExtra("challenge", challenge)
+                        data.putExtra("oauth_token", authToken)
+                        data.putExtra("oauth_verifier", authVerifier)
                         setResult(RESULT_OK, data)
                         finish()
                     } else {

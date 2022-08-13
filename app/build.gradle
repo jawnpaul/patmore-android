@@ -84,6 +84,8 @@ android {
             buildConfigField("String", "TWITTER_TOKEN", "\"" + localProperties['TWITTER_BEARER_TOKEN'] + "\"")
             buildConfigField("String", "TWITTER_CLIENT_ID", "\"" + localProperties['TWITTER_CLIENT_ID'] + "\"")
             buildConfigField("String", "TWITTER_CALLBACK_URL", "\"" + localProperties['TWITTER_CALLBACK_URL'] + "\"")
+            buildConfigField("String", "TWITTER_API_KEY", "\"" + localProperties['TWITTER_API_KEY'] + "\"")
+            buildConfigField("String", "TWITTER_API_SECRET", "\"" + localProperties['TWITTER_API_SECRET'] + "\"")
 
 
             minifyEnabled false
@@ -97,6 +99,8 @@ android {
             buildConfigField("String", "TWITTER_TOKEN", "\"" + localProperties['TWITTER_BEARER_TOKEN'] + "\"")
             buildConfigField("String", "TWITTER_CLIENT_ID", "\"" + localProperties['TWITTER_CLIENT_ID'] + "\"")
             buildConfigField("String", "TWITTER_CALLBACK_URL", "\"" + localProperties['TWITTER_CALLBACK_URL'] + "\"")
+            buildConfigField("String", "TWITTER_API_KEY", "\"" + localProperties['TWITTER_API_KEY'] + "\"")
+            buildConfigField("String", "TWITTER_API_SECRET", "\"" + localProperties['TWITTER_API_SECRET'] + "\"")
 
             shrinkResources false
             minifyEnabled false

@@ -4,6 +4,8 @@ import com.android.patmore.core.imageloader.IImageLoader
 import com.android.patmore.core.imageloader.ImageLoader
 import com.android.patmore.features.authentication.data.repository.AuthenticationRepository
 import com.android.patmore.features.authentication.domain.repository.IAuthenticationRepository
+import com.android.patmore.features.custom.data.repository.CustomRepository
+import com.android.patmore.features.custom.domain.repository.ICustomRepository
 import com.android.patmore.features.foryou.data.repository.ForYouRepository
 import com.android.patmore.features.foryou.domain.repository.IForYouRepository
 import com.android.patmore.features.subscription.data.repository.SubscriptionRepository
@@ -28,4 +30,7 @@ abstract class BindsModule {
 
     @Binds
     abstract fun bindsSubscriptionRepository(repository: SubscriptionRepository): ISubscriptionRepository
+
+    @Binds
+    abstract fun bindsCustomRepository(repository: CustomRepository): ICustomRepository
 }

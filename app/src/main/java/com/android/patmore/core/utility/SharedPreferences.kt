@@ -61,4 +61,45 @@ class SharedPreferences @Inject constructor(@ApplicationContext context: Context
     fun getTwitterUserRefreshToken(): String? {
         return sharedPref.getString("twitterUserRefreshToken", null)
     }
+
+    fun saveTwitterUserId(userId: String) {
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString("twitterUserId", userId)
+        editor.apply()
+    }
+
+    fun getTwitterUserId(): String? {
+        return sharedPref.getString("twitterUserId", null)
+    }
+
+    fun saveTokenExpiration(time: Long) {
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        val t = System.currentTimeMillis() + time
+        editor.putLong("tokenExpiration", t)
+        editor.apply()
+    }
+
+    fun getTokenExpiration(): Long {
+        return sharedPref.getLong("tokenExpiration", 1660415199624L)
+    }
+
+    fun saveOAuthToken(token: String) {
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString("oauthToken", token)
+        editor.apply()
+    }
+
+    fun getOauthToken(): String? {
+        return sharedPref.getString("oauthToken", null)
+    }
+
+    fun saveOAuthSecret(token: String) {
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString("oauthSecret", token)
+        editor.apply()
+    }
+
+    fun getOauthSecret(): String? {
+        return sharedPref.getString("oauthSecret", null)
+    }
 }
