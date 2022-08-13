@@ -69,4 +69,11 @@
     <string name="computer_programming">Computer programming</string>
     <string name="data_science">Data science</string>
     <string name="tech_industry">Tech industry</string>
+    <string name="today">Today</string>
+    <string name="most_recent">most recent</string>
+    <string name="people_i_follow">People I follow</string>
+    <string name="all">all</string>
+    <string name="choose_a_filter_for_your_timeline">Select an option to filter your timeline</string>
+    <string name="hi_user">Hi, {you}</string>
+    <string name="please_login">You\'ll have to login to your twitter account to allow us fetch your timeline</string>
 </resources>
