@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.patmore.R
 import com.android.patmore.core.utility.SharedPreferences
 import com.android.patmore.core.utility.analytics.MixPanelUtil
-import com.android.patmore.features.authentication.presentation.AuthenticationViewModel
+import com.android.patmore.features.authentication.presentation.viewmodel.AuthenticationViewModel
 import com.android.patmore.features.home.presentation.view.MainActivity
 import com.android.patmore.features.onboarding.OnboardingActivity
 import dagger.hilt.android.AndroidEntryPoint

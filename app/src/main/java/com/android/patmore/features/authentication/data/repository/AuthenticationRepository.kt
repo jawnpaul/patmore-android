@@ -5,8 +5,11 @@ import com.android.patmore.core.exception.Failure
 import com.android.patmore.core.functional.Either
 import com.android.patmore.core.utility.SharedPreferences
 import com.android.patmore.core.utility.analytics.MixPanelUtil
+import com.android.patmore.features.authentication.data.remote.model.AccessTokenRequest
 import com.android.patmore.features.authentication.data.remote.model.CreateTokenRequest
 import com.android.patmore.features.authentication.domain.repository.IAuthenticationRepository
+import com.tycz.tweedle.lib.api.Response
+import com.tycz.tweedle.lib.authentication.Authentication2
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
@@ -60,4 +63,22 @@ class AuthenticationRepository @Inject constructor(
             Timber.e("Access token is available")
         }
     }
+
+    override suspend fun getOauth2AccessToken(request: AccessTokenRequest): Flow<Either<Failure, Unit>> =
+        flow {
+            val authentication = Authentication2(request.code, request.clientID)
+            val response = authentication.getAccessToken(request.callback, request.challenge)
+
+            if (response is Response.Success) {
+                response.data?.let {
+                    sharedPreferences.saveTwitterUserAccessToken(it.access_token)
+                    it.refresh_token?.let { refresh ->
+                        sharedPreferences.saveTwitterUserRefreshToken(refresh)
+                    }
+                }
+                emit(Either.Right(Unit))
+            } else {
+                emit(Either.Left(Failure.ServerError))
+            }
+        }
 }

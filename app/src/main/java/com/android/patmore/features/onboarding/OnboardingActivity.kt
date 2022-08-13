@@ -11,11 +11,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.android.patmore.core.utility.SharedPreferences
 import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.databinding.ActivityOnboardingBinding
-import com.android.patmore.features.authentication.presentation.AuthenticationViewModel
+import com.android.patmore.features.authentication.presentation.viewmodel.AuthenticationViewModel
 import com.android.patmore.features.home.presentation.view.MainActivity
 import com.android.patmore.features.subscription.presentation.viewmodel.SubscriptionViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

@@ -17,7 +17,7 @@ ext {
     AndroidSdk = [
             compileSdk: 31,
             targetSdk : 30,
-            minSdk    : 21,
+            minSdk    : 26,
             buildTools: "30.0.3"
     ]
 
@@ -67,7 +67,8 @@ ext {
             mixpanel           : "5.9.5",
             lottie             : "4.1.0",
             groupie            : "2.10.0",
-            storiesProgress : "1.1.4"
+            storiesProgress    : "1.1.4",
+            tweedle            : "0.5.2"
     ]
 
     Libraries = [
@@ -97,7 +98,8 @@ ext {
             lottie             : "com.airbnb.android:lottie:$LibrariesVersion.lottie",
             groupie            : "com.github.lisawray.groupie:groupie:$LibrariesVersion.groupie",
             groupieDataBinding : "com.github.lisawray.groupie:groupie-databinding:$LibrariesVersion.groupie",
-            storiesProgress: "com.github.teresaholfeld:Stories:$LibrariesVersion.storiesProgress"
+            storiesProgress    : "com.github.teresaholfeld:Stories:$LibrariesVersion.storiesProgress",
+            tweedle            : "io.github.tyczj:tweedle-android:$LibrariesVersion.tweedle"
 
     ]
 

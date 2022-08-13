@@ -82,6 +82,9 @@ android {
             buildConfigField("String", "TWITTER_BASE_URL", "\"" + localProperties['TWITTER_BASE_URL'] + "\"")
             buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_PROD_TOKEN'] + "\"")
             buildConfigField("String", "TWITTER_TOKEN", "\"" + localProperties['TWITTER_BEARER_TOKEN'] + "\"")
+            buildConfigField("String", "TWITTER_CLIENT_ID", "\"" + localProperties['TWITTER_CLIENT_ID'] + "\"")
+            buildConfigField("String", "TWITTER_CALLBACK_URL", "\"" + localProperties['TWITTER_CALLBACK_URL'] + "\"")
+
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -92,7 +95,8 @@ android {
             buildConfigField("String", "TWITTER_BASE_URL", "\"" + localProperties['TWITTER_BASE_URL'] + "\"")
             buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_DEV_TOKEN'] + "\"")
             buildConfigField("String", "TWITTER_TOKEN", "\"" + localProperties['TWITTER_BEARER_TOKEN'] + "\"")
-
+            buildConfigField("String", "TWITTER_CLIENT_ID", "\"" + localProperties['TWITTER_CLIENT_ID'] + "\"")
+            buildConfigField("String", "TWITTER_CALLBACK_URL", "\"" + localProperties['TWITTER_CALLBACK_URL'] + "\"")
 
             shrinkResources false
             minifyEnabled false
@@ -187,6 +191,16 @@ dependencies {
 
     //Palette
     implementation "com.android.support:palette-v7:28.0.0"
+
+    //tweedle
+    implementation Libraries.tweedle
+
+    //coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1-native-mt"){
+        version {
+            strictly("1.4.1-native-mt")
+        }
+    }
 
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore

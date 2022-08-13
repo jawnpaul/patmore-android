@@ -41,4 +41,24 @@ class SharedPreferences @Inject constructor(@ApplicationContext context: Context
     fun getUserCategories(): String? {
         return sharedPref.getString("userCategories", null)
     }
+
+    fun saveTwitterUserAccessToken(accessToken: String) {
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString("twitterUserAccessToken", accessToken)
+        editor.apply()
+    }
+
+    fun getTwitterUserAccessToken(): String? {
+        return sharedPref.getString("twitterUserAccessToken", null)
+    }
+
+    fun saveTwitterUserRefreshToken(accessToken: String) {
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        editor.putString("twitterUserRefreshToken", accessToken)
+        editor.apply()
+    }
+
+    fun getTwitterUserRefreshToken(): String? {
+        return sharedPref.getString("twitterUserRefreshToken", null)
+    }
 }
