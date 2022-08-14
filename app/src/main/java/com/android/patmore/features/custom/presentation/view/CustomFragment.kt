@@ -15,8 +15,8 @@ import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.databinding.FragmentCustomBinding
 import com.android.patmore.features.authentication.presentation.view.TwitterAuthenticationActivity
 import com.android.patmore.features.authentication.presentation.viewmodel.AuthenticationViewModel
+import com.android.patmore.features.custom.presentation.viewmodel.CustomViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,6 +25,7 @@ class CustomFragment : Fragment() {
     private val binding get() = _binding!!
     private val TAG = CustomFragment::class.simpleName
     private val viewModel: AuthenticationViewModel by activityViewModels()
+    private val customViewModel: CustomViewModel by activityViewModels()
 
     @Inject
     lateinit var mixPanelUtil: MixPanelUtil
@@ -88,7 +89,15 @@ class CustomFragment : Fragment() {
         }
 
         binding.todayChip.setOnClickListener {
-            Timber.d(sharedPreferences.getTwitterUserAccessToken())
+            customViewModel.getUserTimeline()
+        }
+
+        viewModel.userGotten.observe(viewLifecycleOwner) {
+            if (it == true) {
+                // get user timeline
+            }
+
+            // unset user gotten when timeline is got
         }
 
         mixPanelUtil.logScreen(TAG)

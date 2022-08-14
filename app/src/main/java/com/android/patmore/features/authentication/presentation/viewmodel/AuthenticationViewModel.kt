@@ -28,7 +28,7 @@ class AuthenticationViewModel @Inject constructor(
     private val _hideHelperLayout = MutableLiveData<Boolean>()
     val hideHelperLayout get() = _hideHelperLayout
 
-    private val _userGotten = MutableLiveData<Boolean>()
+    private val _userGotten = MutableLiveData<Boolean?>()
     val userGotten get() = _userGotten
 
     fun getToken() {
@@ -87,6 +87,10 @@ class AuthenticationViewModel @Inject constructor(
                 _userGotten.value = true
             }
         }
+    }
+
+    fun unSetUserGotten() {
+        _userGotten.value = null
     }
 
     override fun onCleared() {

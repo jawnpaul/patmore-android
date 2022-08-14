@@ -1,6 +1,7 @@
 package com.android.patmore.features.custom.data.repository
 
 import com.android.patmore.core.api.CustomTwitterApiService
+import com.android.patmore.core.api.TwitterApiService
 import com.android.patmore.core.exception.Failure
 import com.android.patmore.core.functional.Either
 import com.android.patmore.core.utility.SharedPreferences
@@ -15,6 +16,7 @@ import javax.inject.Inject
 
 class CustomRepository @Inject constructor(
     private val sharedPreferences: SharedPreferences,
+    private val twitterApiService: TwitterApiService,
     private val customTwitterApiService: CustomTwitterApiService,
 ) :
     ICustomRepository {
@@ -27,13 +29,16 @@ class CustomRepository @Inject constructor(
             // if userid is not null
             if (sharedPreferences.getTwitterUserId() != null) {
                 // if token hasn't expired
-                if (System.currentTimeMillis() < sharedPreferences.getTokenExpiration()) {
+                Timber.d("User id is not null")
+                Timber.d(sharedPreferences.getTokenExpiration().toString())
+                if (System.currentTimeMillis() > sharedPreferences.getTokenExpiration()) {
+
                     val fields = "attachments,created_at"
                     val expansions = "attachments.media_keys,author_id"
                     val mediaFields = "type,media_key,preview_image_url,url"
                     val userFields = "profile_image_url,name,username,id"
                     val res =
-                        customTwitterApiService.getUserHomeTimeline(
+                        twitterApiService.getUserHomeTimeline(
                             userId = sharedPreferences.getTwitterUserId()!!,
                             fields = fields,
                             expansions = expansions,
@@ -63,6 +68,7 @@ class CustomRepository @Inject constructor(
                         }
                     }
                 } else {
+                    // token has expired
                     // call refresh token
                 }
             } else {
@@ -77,14 +83,15 @@ class CustomRepository @Inject constructor(
     override suspend fun getCurrentUser(): Flow<Either<Failure, Unit>> = flow {
         if (sharedPreferences.getTwitterUserId() == null) {
             try {
-                val res = customTwitterApiService.getCurrentUser("profile_image_url")
+                val res = twitterApiService.getCurrentUser("profile_image_url")
                 when (res.isSuccessful) {
                     true -> {
                         res.body()?.let {
-                            sharedPreferences.saveTwitterUserId(it.id)
+                            val user = it.user
+                            sharedPreferences.saveTwitterUserId(user.id)
                             emit(Either.Right(Unit))
                             // mixpanel
-                            mixPanelUtil.twitterLogin(it)
+                            mixPanelUtil.twitterLogin(user)
                         }
                     }
                     false -> {
