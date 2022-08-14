@@ -15,7 +15,6 @@ import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.databinding.FragmentCustomBinding
 import com.android.patmore.features.authentication.presentation.view.TwitterAuthenticationActivity
 import com.android.patmore.features.authentication.presentation.viewmodel.AuthenticationViewModel
-import com.android.patmore.features.custom.presentation.viewmodel.CustomViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
@@ -26,7 +25,6 @@ class CustomFragment : Fragment() {
     private val binding get() = _binding!!
     private val TAG = CustomFragment::class.simpleName
     private val viewModel: AuthenticationViewModel by activityViewModels()
-    private val customViewModel: CustomViewModel by activityViewModels()
 
     @Inject
     lateinit var mixPanelUtil: MixPanelUtil
@@ -55,16 +53,11 @@ class CustomFragment : Fragment() {
                 val clientId = BuildConfig.TWITTER_CLIENT_ID
                 val callbackUrl = BuildConfig.TWITTER_CALLBACK_URL
                 it.data?.let { intent ->
-                    /*viewModel.getOAuth2AccessToken(
+                    viewModel.getOAuth2AccessToken(
                         code = intent.getStringExtra("code")!!,
                         challenge = intent.getStringExtra("challenge")!!,
                         clientId,
                         callbackUrl
-                    )*/
-
-                    viewModel.getOAuth1AccessToken(
-                        token = intent.getStringExtra("oauth_token")!!,
-                        verifier = intent.getStringExtra("oauth_verifier")!!
                     )
                 }
             }
@@ -78,11 +71,9 @@ class CustomFragment : Fragment() {
 
         if (sharedPreferences.getTwitterUserAccessToken() == null) {
             // show login view
-            Timber.d("null access token")
             binding.helperLayout.visibility = View.VISIBLE
         } else {
             // show default
-
             binding.helperLayout.visibility = View.GONE
         }
 
@@ -92,16 +83,12 @@ class CustomFragment : Fragment() {
                 binding.helperLayout.visibility = View.GONE
             } else {
                 // show layout
-                Timber.d("else part")
                 binding.helperLayout.visibility = View.VISIBLE
             }
         }
 
-        viewModel.userGotten.observe(viewLifecycleOwner) {
-            if (it) {
-                // get user timeline
-                customViewModel.getUserTimeline()
-            }
+        binding.todayChip.setOnClickListener {
+            Timber.d(sharedPreferences.getTwitterUserAccessToken())
         }
 
         mixPanelUtil.logScreen(TAG)

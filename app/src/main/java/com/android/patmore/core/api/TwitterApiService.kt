@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface TwitterApiService {
-    @GET("tweets")
+    @GET("2/tweets")
     suspend fun getTweet(
         @Query("ids") id: String,
         @Query("expansions") expansions: String,

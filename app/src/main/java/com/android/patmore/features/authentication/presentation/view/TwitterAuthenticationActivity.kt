@@ -39,7 +39,7 @@ class TwitterAuthenticationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_twitter_authentication)
 
         val clientId = intent.getStringExtra("clientId")!!
-        val scopeList = listOf(OAuthScope.OfflineAccessScope, OAuthScope.TweetReadScope)
+        val scopeList = listOf(OAuthScope.OfflineAccessScope, OAuthScope.TweetReadScope, OAuthScope.UserReadScope)
 
         oauthToken = intent.getStringExtra("oauthToken")!!
         val url = "https://api.twitter.com/oauth/authorize?oauth_token=$oauthToken&force_login=true"
