@@ -38,7 +38,7 @@ class TwitterAuthenticationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_twitter_authentication)
 
         val clientId = intent.getStringExtra("clientId")!!
-        val scopeList = listOf(OAuthScope.OfflineAccessScope, OAuthScope.TweetReadScope)
+        val scopeList = listOf(OAuthScope.OfflineAccessScope, OAuthScope.TweetReadScope, OAuthScope.UserReadScope)
 
         /*OAuthScope.OfflineAccessScope,
         OAuthScope.TweetReadScope,

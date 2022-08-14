@@ -16,6 +16,7 @@ import com.android.patmore.databinding.FragmentCustomBinding
 import com.android.patmore.features.authentication.presentation.view.TwitterAuthenticationActivity
 import com.android.patmore.features.authentication.presentation.viewmodel.AuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -84,6 +85,10 @@ class CustomFragment : Fragment() {
                 // show layout
                 binding.helperLayout.visibility = View.VISIBLE
             }
+        }
+
+        binding.todayChip.setOnClickListener {
+            Timber.d(sharedPreferences.getTwitterUserAccessToken())
         }
 
         mixPanelUtil.logScreen(TAG)

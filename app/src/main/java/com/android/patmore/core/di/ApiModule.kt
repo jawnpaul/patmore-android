@@ -4,6 +4,7 @@ import com.android.patmore.BuildConfig
 import com.android.patmore.core.api.AuthenticationInterceptor
 import com.android.patmore.core.api.PatmoreApiService
 import com.android.patmore.core.api.TwitterApiService
+import com.android.patmore.core.api.TwitterInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,10 +47,10 @@ object ApiModule {
     @Singleton
     @Provides
     @Named("Twitter")
-    fun provideTwitterRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
+    fun provideTwitterRetrofit(interceptor: TwitterInterceptor): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.TWITTER_BASE_URL)
-            .client(provideTwitterOkHttPClient())
+            .client(provideTwitterOkHttPClient(interceptor))
             .addConverterFactory(MoshiConverterFactory.create())
     }
 
@@ -61,34 +62,24 @@ object ApiModule {
             return OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .addInterceptor(authenticationInterceptor)
-                /*.addInterceptor { chain ->
-                    val newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer ${sharedPreferences.getAccessToken()}")
-                        .build()
-                    chain.proceed(newRequest)
-                }*/
                 .build()
         }
         return OkHttpClient.Builder()
+            .addInterceptor(authenticationInterceptor)
             .build()
     }
 
-    private fun provideTwitterOkHttPClient(): OkHttpClient {
-        val token = BuildConfig.TWITTER_TOKEN
+    fun provideTwitterOkHttPClient(interceptor: TwitterInterceptor): OkHttpClient {
         if (BuildConfig.DEBUG) {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             return OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
-                .addInterceptor { chain ->
-                    val newRequest = chain.request().newBuilder()
-                        .addHeader("Authorization", "Bearer $token")
-                        .build()
-                    chain.proceed(newRequest)
-                }
+                .addInterceptor(interceptor)
                 .build()
         }
         return OkHttpClient.Builder()
+            .addInterceptor(interceptor)
             .build()
     }
 }
