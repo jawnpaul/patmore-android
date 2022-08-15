@@ -12,10 +12,10 @@ import com.android.patmore.core.imageloader.ImageLoader
 import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.databinding.FragmentCategoryBinding
 import com.android.patmore.features.foryou.presentation.model.ForYouTweetPresentation
-import com.android.patmore.features.foryou.presentation.model.GifMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.ImageMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.TweetMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.VideoMediaPresentation
+import com.android.patmore.features.media.GifMediaPresentation
+import com.android.patmore.features.media.ImageMediaPresentation
+import com.android.patmore.features.media.TweetMediaPresentation
+import com.android.patmore.features.media.VideoMediaPresentation
 import com.google.android.material.imageview.ShapeableImageView
 
 private const val ARG_PARAM1 = "param1"

@@ -14,11 +14,11 @@ import com.android.patmore.core.imageloader.ImageLoader
 import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.core.utility.capitalizeFirstLetter
 import com.android.patmore.databinding.FragmentSingleForYouTweetBinding
-import com.android.patmore.features.foryou.presentation.model.GifMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.ImageMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.TweetMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.VideoMediaPresentation
 import com.android.patmore.features.foryou.presentation.viewmodel.ForYouViewModel
+import com.android.patmore.features.media.GifMediaPresentation
+import com.android.patmore.features.media.ImageMediaPresentation
+import com.android.patmore.features.media.TweetMediaPresentation
+import com.android.patmore.features.media.VideoMediaPresentation
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

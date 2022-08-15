@@ -1,6 +1,8 @@
 package com.android.patmore.features.authentication.data.repository
 
+import com.android.patmore.BuildConfig
 import com.android.patmore.core.api.PatmoreApiService
+import com.android.patmore.core.api.TwitterApiService
 import com.android.patmore.core.exception.Failure
 import com.android.patmore.core.functional.Either
 import com.android.patmore.core.utility.SharedPreferences
@@ -19,6 +21,7 @@ import javax.inject.Inject
 class AuthenticationRepository @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val apiService: PatmoreApiService,
+    private val twitterApiService: TwitterApiService,
 ) : IAuthenticationRepository {
 
     @Inject
@@ -82,4 +85,5 @@ class AuthenticationRepository @Inject constructor(
                 emit(Either.Left(Failure.ServerError))
             }
         }
+
 }

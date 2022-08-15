@@ -89,7 +89,7 @@ class CustomFragment : Fragment() {
         }
 
         binding.todayChip.setOnClickListener {
-            customViewModel.getUserTimeline()
+            // customViewModel.getUserTimeline()
         }
 
         viewModel.userGotten.observe(viewLifecycleOwner) {

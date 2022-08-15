@@ -21,7 +21,8 @@ class TwitterInterceptor @Inject constructor(private val sharedPreferences: Shar
         val token = if (sharedPreferences.getTwitterUserAccessToken() == null) {
             BuildConfig.TWITTER_TOKEN
         } else {
-            sharedPreferences.getTwitterUserAccessToken()!!
+            // sharedPreferences.getTwitterUserAccessToken()!!
+            BuildConfig.TWITTER_TOKEN
         }
 
         // TODO:Handle token expiration here

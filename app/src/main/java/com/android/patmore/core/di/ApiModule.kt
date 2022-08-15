@@ -2,10 +2,9 @@ package com.android.patmore.core.di
 
 import com.android.patmore.BuildConfig
 import com.android.patmore.core.api.AuthenticationInterceptor
-import com.android.patmore.core.api.CustomTwitterApiService
 import com.android.patmore.core.api.PatmoreApiService
+import com.android.patmore.core.api.TokenAuthenticator
 import com.android.patmore.core.api.TwitterApiService
-import com.android.patmore.core.api.TwitterInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,10 +47,10 @@ object ApiModule {
     @Singleton
     @Provides
     @Named("Twitter")
-    fun provideTwitterRetrofit(interceptor: TwitterInterceptor): Retrofit.Builder {
+    fun provideTwitterRetrofit(tokenAuthenticator: TokenAuthenticator): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.TWITTER_BASE_URL)
-            .client(provideTwitterOkHttPClient(interceptor))
+            .client(provideTwitterOkHttPClient(tokenAuthenticator))
             .addConverterFactory(MoshiConverterFactory.create())
     }
 
@@ -70,49 +69,17 @@ object ApiModule {
             .build()
     }
 
-    fun provideTwitterOkHttPClient(interceptor: TwitterInterceptor): OkHttpClient {
+    private fun provideTwitterOkHttPClient(tokenAuthenticator: TokenAuthenticator): OkHttpClient {
         if (BuildConfig.DEBUG) {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             return OkHttpClient.Builder()
+                .authenticator(tokenAuthenticator)
                 .addInterceptor(loggingInterceptor)
-                .addInterceptor(interceptor)
                 .build()
         }
         return OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .build()
-    }
-
-    @Provides
-    fun provideCustomTwitterApi(@Named("CustomTwitter") builder: Retrofit.Builder): CustomTwitterApiService {
-        return builder
-            .build()
-            .create(CustomTwitterApiService::class.java)
-    }
-
-    @Singleton
-    @Provides
-    @Named("CustomTwitter")
-    fun provideCustomTwitterRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder {
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.TWITTER_BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
-    }
-
-    @Provides
-    @Named("CustomTwitter")
-    fun provideCustomTwitterOkHttPClient(authenticationInterceptor: TwitterInterceptor): OkHttpClient {
-        if (BuildConfig.DEBUG) {
-            val loggingInterceptor =
-                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            return OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .addInterceptor(authenticationInterceptor)
-                .build()
-        }
-        return OkHttpClient.Builder()
+            .authenticator(tokenAuthenticator)
             .build()
     }
 }

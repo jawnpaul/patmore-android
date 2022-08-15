@@ -1,6 +1,5 @@
 package com.android.patmore.features.custom.data.repository
 
-import com.android.patmore.core.api.CustomTwitterApiService
 import com.android.patmore.core.api.TwitterApiService
 import com.android.patmore.core.exception.Failure
 import com.android.patmore.core.functional.Either
@@ -17,7 +16,6 @@ import javax.inject.Inject
 class CustomRepository @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val twitterApiService: TwitterApiService,
-    private val customTwitterApiService: CustomTwitterApiService,
 ) :
     ICustomRepository {
 
@@ -81,39 +79,36 @@ class CustomRepository @Inject constructor(
     }
 
     override suspend fun getCurrentUser(): Flow<Either<Failure, Unit>> = flow {
-        if (sharedPreferences.getTwitterUserId() == null) {
-            try {
-                val res = twitterApiService.getCurrentUser("profile_image_url")
-                when (res.isSuccessful) {
-                    true -> {
-                        res.body()?.let {
-                            val user = it.user
-                            sharedPreferences.saveTwitterUserId(user.id)
-                            emit(Either.Right(Unit))
-                            // mixpanel
-                            mixPanelUtil.twitterLogin(user)
-                        }
+
+        try {
+            val res = twitterApiService.getCurrentUser("profile_image_url")
+            when (res.isSuccessful) {
+                true -> {
+                    res.body()?.let {
+                        val user = it.user
+                        sharedPreferences.saveTwitterUserId(user.id)
+                        emit(Either.Right(Unit))
+                        // mixpanel
+                        mixPanelUtil.twitterLogin(user)
                     }
-                    false -> {
-                        when {
-                            res.code() == 401 -> {
-                                emit(Either.Left(Failure.UnAuthorizedError))
-                            }
-                            res.code() == 400 -> {
-                                emit(Either.Left(Failure.BadRequest))
-                            }
-                            else -> {
-                                emit(Either.Left(Failure.ServerError))
-                            }
+                }
+                false -> {
+                    when {
+                        res.code() == 401 -> {
+                            emit(Either.Left(Failure.UnAuthorizedError))
+                        }
+                        res.code() == 400 -> {
+                            emit(Either.Left(Failure.BadRequest))
+                        }
+                        else -> {
+                            emit(Either.Left(Failure.ServerError))
                         }
                     }
                 }
-            } catch (e: Exception) {
-                Timber.e(e.stackTraceToString())
-                emit(Either.Left(Failure.ServerError))
             }
-        } else {
-            emit(Either.Right(Unit))
+        } catch (e: Exception) {
+            Timber.e(e.stackTraceToString())
+            emit(Either.Left(Failure.ServerError))
         }
     }
 

@@ -1,9 +1,9 @@
 package com.android.patmore.features.foryou.domain.model
 
-import com.android.patmore.features.foryou.presentation.model.GifMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.ImageMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.TweetMediaPresentation
-import com.android.patmore.features.foryou.presentation.model.VideoMediaPresentation
+import com.android.patmore.features.media.GifMediaPresentation
+import com.android.patmore.features.media.ImageMediaPresentation
+import com.android.patmore.features.media.TweetMediaPresentation
+import com.android.patmore.features.media.VideoMediaPresentation
 
 data class TweetMedia(
     val mediaKey: String,

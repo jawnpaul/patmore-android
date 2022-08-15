@@ -4,6 +4,9 @@ import android.view.View
 import coil.load
 import com.android.patmore.R
 import com.android.patmore.databinding.SingleCategoryTweetItemBinding
+import com.android.patmore.features.media.GifMediaPresentation
+import com.android.patmore.features.media.ImageMediaPresentation
+import com.android.patmore.features.media.VideoMediaPresentation
 import com.xwray.groupie.databinding.BindableItem
 
 class SingleCategoryTweetItem(
