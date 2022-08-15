@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import com.android.patmore.BuildConfig
 import com.android.patmore.core.utility.SharedPreferences
 import com.android.patmore.core.utility.analytics.MixPanelUtil
@@ -20,6 +21,8 @@ import com.android.patmore.features.authentication.presentation.viewmodel.Authen
 import com.android.patmore.features.custom.presentation.adapter.TwitterTimelineAdapter
 import com.android.patmore.features.custom.presentation.viewmodel.CustomViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -102,7 +105,10 @@ class CustomFragment : Fragment() {
         viewModel.userGotten.observe(viewLifecycleOwner) {
             if (it == true) {
                 // get user timeline
-                customViewModel.getUserTimeline()
+                lifecycleScope.launch {
+                    delay(1000L)
+                    customViewModel.getUserTimeline()
+                }
             }
         }
 

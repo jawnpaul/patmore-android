@@ -30,48 +30,41 @@ class CustomRepository @Inject constructor(
             // if userid is not null
             if (sharedPreferences.getTwitterUserId() != null) {
 
-                // This will always be true
-                if (System.currentTimeMillis() > sharedPreferences.getTokenExpiration()) {
-
-                    val fields = "attachments,created_at"
-                    val expansions = "attachments.media_keys,author_id"
-                    val mediaFields = "type,media_key,preview_image_url,url"
-                    val userFields = "profile_image_url,name,username,id"
-                    val exclude = "retweets,replies"
-                    val res =
-                        twitterApiService.getUserHomeTimeline(
-                            userId = sharedPreferences.getTwitterUserId()!!,
-                            fields = fields,
-                            expansions = expansions,
-                            mediaFields = mediaFields,
-                            userFields = userFields,
-                            excludes = exclude
-                        )
-                    when (res.isSuccessful) {
-                        true -> {
-                            res.body()?.let {
-                                val list = it.data.map { aa -> mapToDomain(it, aa) }
-                                emit(Either.Right(list))
-                            } ?: emit(Either.Left(Failure.DataError))
-                        }
-                        false -> {
-                            when {
-                                res.code() == 401 -> {
-                                    Timber.d("401 error")
-                                    emit(Either.Left(Failure.UnAuthorizedError))
-                                }
-                                res.code() == 400 -> {
-                                    emit(Either.Left(Failure.BadRequest))
-                                }
-                                else -> {
-                                    emit(Either.Left(Failure.ServerError))
-                                }
+                val fields = "attachments,created_at"
+                val expansions = "attachments.media_keys,author_id"
+                val mediaFields = "type,media_key,preview_image_url,url"
+                val userFields = "profile_image_url,name,username,id"
+                val exclude = "retweets,replies"
+                val res =
+                    twitterApiService.getUserHomeTimeline(
+                        userId = sharedPreferences.getTwitterUserId()!!,
+                        fields = fields,
+                        expansions = expansions,
+                        mediaFields = mediaFields,
+                        userFields = userFields,
+                        excludes = exclude
+                    )
+                when (res.isSuccessful) {
+                    true -> {
+                        res.body()?.let {
+                            val list = it.data.map { aa -> mapToDomain(it, aa) }
+                            emit(Either.Right(list))
+                        } ?: emit(Either.Left(Failure.DataError))
+                    }
+                    false -> {
+                        when {
+                            res.code() == 401 -> {
+                                Timber.d("401 error")
+                                emit(Either.Left(Failure.UnAuthorizedError))
+                            }
+                            res.code() == 400 -> {
+                                emit(Either.Left(Failure.BadRequest))
+                            }
+                            else -> {
+                                emit(Either.Left(Failure.ServerError))
                             }
                         }
                     }
-                } else {
-                    // token has expired
-                    // call refresh token
                 }
             } else {
                 emit(Either.Left(Failure.DataError))

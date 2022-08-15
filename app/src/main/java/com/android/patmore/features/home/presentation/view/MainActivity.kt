@@ -52,9 +52,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        customViewModel.getUserTimeline()
         // forYouViewModel.getTechnologyTweets()
         forYouViewModel.getForYouTweets()
-        customViewModel.getUserTimeline()
 
         mixPanelUtil.logScreen(TAG)
     }
