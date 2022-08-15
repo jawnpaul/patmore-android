@@ -1,10 +1,12 @@
 package com.android.patmore.features.custom.presentation.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.patmore.core.exception.Failure
 import com.android.patmore.core.functional.onFailure
 import com.android.patmore.core.functional.onSuccess
 import com.android.patmore.features.custom.domain.usecases.GetUserTimelineUseCase
+import com.android.patmore.features.custom.presentation.state.CustomTimelineView
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import timber.log.Timber
@@ -15,17 +17,30 @@ class CustomViewModel @Inject constructor(private val getUserTimelineUseCase: Ge
     ViewModel() {
     private val job = Job()
 
+    private val _customTimeline = MutableLiveData<CustomTimelineView>()
+    val customTimeline get() = _customTimeline
+
     fun getUserTimeline() {
+        _customTimeline.value = CustomTimelineView(loading = true)
         getUserTimelineUseCase(job, GetUserTimelineUseCase.None()) {
-            it.onSuccess { Timber.d("Timeline gotten") }
+            it.onSuccess { res ->
+                Timber.d("Timeline gotten")
+                _customTimeline.value = CustomTimelineView(
+                    loading = false,
+                    response = res.map { aa -> aa.toPresentation() }
+                )
+            }
             it.onFailure { failure ->
+                Timber.e(failure.toString())
                 when (failure) {
                     is Failure.UnAuthorizedError -> {
-                        // Refresh token
-                        Timber.e("Token has expired")
+                        _customTimeline.value =
+                            CustomTimelineView(loading = false, error = "Auth failed")
                     }
                     else -> {
                         Timber.e(failure.toString())
+                        _customTimeline.value =
+                            CustomTimelineView(loading = false, error = "Something went wrong.")
                     }
                 }
             }

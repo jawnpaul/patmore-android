@@ -2,6 +2,7 @@ package com.android.patmore.core.api
 
 import com.android.patmore.features.custom.data.remote.SingleTwitterUser
 import com.android.patmore.features.foryou.data.remote.model.SingleTweetResponse
+import com.android.patmore.features.foryou.data.remote.model.UserTimelineResponse
 import com.tycz.tweedle.lib.authentication.OAuth2PKCEResponse
 import retrofit2.Response
 import retrofit2.http.Field
@@ -32,7 +33,8 @@ interface TwitterApiService {
         @Query("media.fields") mediaFields: String,
         @Query("tweet.fields") fields: String,
         @Query("user.fields") userFields: String,
-    ): Response<SingleTweetResponse>
+        @Query("exclude") excludes: String,
+    ): Response<UserTimelineResponse>
 
     @FormUrlEncoded
     @Headers("Content-Type:application/x-www-form-urlencoded")

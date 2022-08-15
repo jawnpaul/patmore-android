@@ -10,6 +10,7 @@ import com.android.patmore.R
 import com.android.patmore.core.utility.SharedPreferences
 import com.android.patmore.core.utility.analytics.MixPanelUtil
 import com.android.patmore.databinding.ActivityMainBinding
+import com.android.patmore.features.custom.presentation.viewmodel.CustomViewModel
 import com.android.patmore.features.foryou.presentation.viewmodel.ForYouViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +19,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val forYouViewModel: ForYouViewModel by viewModels()
+    private val customViewModel: CustomViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
 
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         // forYouViewModel.getTechnologyTweets()
         forYouViewModel.getForYouTweets()
+        customViewModel.getUserTimeline()
 
         mixPanelUtil.logScreen(TAG)
     }

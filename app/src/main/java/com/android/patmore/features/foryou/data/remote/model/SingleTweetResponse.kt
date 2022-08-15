@@ -43,3 +43,16 @@ data class TweetAuthor(
     @field:Json(name = "username") val userName: String,
     @field:Json(name = "profile_image_url") val profileImage: String,
 ) : Parcelable
+
+data class UserTimelineResponse(
+    @field:Json(name = "data") val data: List<Res>,
+    @field:Json(name = "includes") var includes: TweetIncludes? = null,
+    @field:Json(name = "meta") val meta: TimelineMeta,
+)
+
+data class TimelineMeta(
+    @field:Json(name = "next_token") val nextToken: String,
+    @field:Json(name = "result_count") val resultCount: String,
+    @field:Json(name = "newest_id") val newestId: String,
+    @field:Json(name = "oldest_id") val oldestId: String,
+)

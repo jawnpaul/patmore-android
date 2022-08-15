@@ -25,8 +25,6 @@ class TwitterInterceptor @Inject constructor(private val sharedPreferences: Shar
             BuildConfig.TWITTER_TOKEN
         }
 
-        // TODO:Handle token expiration here
-
         val interceptedRequest = chain.createAuthenticatedRequest(token)
         return chain.proceed(interceptedRequest)
     }

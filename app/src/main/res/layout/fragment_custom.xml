@@ -108,41 +108,77 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
-                android:id="@+id/helper_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:weightSum="3">
+                android:orientation="vertical">
 
-                <ImageView
+                <LinearLayout
+                    android:id="@+id/helper_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.5"
-                    android:src="@drawable/ic_waiting_for_you" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:weightSum="3">
 
-                <TextView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.5"
+                        android:src="@drawable/ic_waiting_for_you" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/sixteen"
+                        android:layout_marginTop="@dimen/sixteen"
+                        android:layout_marginEnd="@dimen/sixteen"
+                        android:text="@string/please_login"
+                        android:textAppearance="@style/textHelper"
+                        app:layout_constraintTop_toBottomOf="@id/headline" />
+
+                    <com.android.patmore.core.utility.ProgressButton
+                        android:id="@+id/login_button"
+                        style="@style/Widget.ProgressButton.Purple"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="@dimen/sixteen"
+                        android:layout_marginTop="@dimen/twenty_four"
+                        android:layout_marginEnd="@dimen/sixteen"
+                        android:layout_marginBottom="@dimen/twenty_four"
+                        app:enabled="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:text="Login" />
+                </LinearLayout>
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/sixteen"
-                    android:layout_marginTop="@dimen/sixteen"
-                    android:layout_marginEnd="@dimen/sixteen"
-                    android:text="@string/please_login"
-                    android:textAppearance="@style/textHelper"
-                    app:layout_constraintTop_toBottomOf="@id/headline" />
+                    android:visibility="gone"
+                    app:shimmer_auto_start="true"
+                    app:shimmer_highlight_color="@color/twitterSlate">
 
-                <com.android.patmore.core.utility.ProgressButton
-                    android:id="@+id/login_button"
-                    style="@style/Widget.ProgressButton.Purple"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/for_you_shimmer_item" />
+
+                        <include layout="@layout/for_you_shimmer_item" />
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tweets_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="@dimen/sixteen"
-                    android:layout_marginTop="@dimen/twenty_four"
-                    android:layout_marginEnd="@dimen/sixteen"
-                    android:layout_marginBottom="@dimen/twenty_four"
-                    app:enabled="true"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:text="Login" />
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/single_tweet_item" />
             </LinearLayout>
+
 
         </androidx.core.widget.NestedScrollView>
 

@@ -1,7 +1,11 @@
 package com.android.patmore.core.utility
 
+import android.content.Context
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.marlonlom.utilities.timeago.TimeAgo
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -44,4 +48,15 @@ fun String.capitalizeFirstLetter() = this.split(" ").joinToString(" ") {
 
 fun NavController.safeNavigate(direction: NavDirections) {
     currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
+}
+
+fun RecyclerView.initRecyclerViewWithoutLineDecoration(context: Context) {
+    val linearLayoutManager = LinearLayoutManager(context)
+    layoutManager = linearLayoutManager
+}
+
+fun RecyclerView.initRecyclerViewWithLineDecoration(context: Context) {
+    val linearLayoutManager = LinearLayoutManager(context)
+    layoutManager = linearLayoutManager
+    addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
 }
