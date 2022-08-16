@@ -29,7 +29,7 @@ class ForYouRepository @Inject constructor(
                 when (res.isSuccessful) {
                     true -> {
                         res.body()?.let { it ->
-                            emit(Either.Right(it.response.map { aa -> aa.tweetId }))
+                            emit(Either.Right(it.response.map { aa -> aa.tweetId }.take(100)))
                         } ?: emit(Either.Left(Failure.DataError))
                     }
                     false -> {
