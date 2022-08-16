@@ -7,13 +7,17 @@ import com.patmore.android.core.functional.onFailure
 import com.patmore.android.core.functional.onSuccess
 import com.patmore.android.features.custom.domain.usecases.GetUserTimelineUseCase
 import com.patmore.android.features.custom.presentation.state.CustomTimelineView
+import com.patmore.android.features.followers.domain.usecases.GetFollowersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class CustomViewModel @Inject constructor(private val getUserTimelineUseCase: GetUserTimelineUseCase) :
+class CustomViewModel @Inject constructor(
+    private val getUserTimelineUseCase: GetUserTimelineUseCase,
+    private val getFollowersUseCase: GetFollowersUseCase,
+) :
     ViewModel() {
     private val job = Job()
 
@@ -44,6 +48,13 @@ class CustomViewModel @Inject constructor(private val getUserTimelineUseCase: Ge
                     }
                 }
             }
+        }
+    }
+
+    fun getUserFollowers() {
+        getFollowersUseCase(job, GetFollowersUseCase.None()) {
+            it.onFailure { failure -> Timber.e(failure.toString()) }
+            it.onSuccess { Timber.d("Followers got") }
         }
     }
 

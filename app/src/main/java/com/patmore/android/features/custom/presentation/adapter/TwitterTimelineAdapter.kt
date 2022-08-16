@@ -14,7 +14,7 @@ import com.patmore.android.features.media.ImageMediaPresentation
 import com.patmore.android.features.media.TweetMediaPresentation
 import com.patmore.android.features.media.VideoMediaPresentation
 
-class TwitterTimelineAdapter(private val onclickTweet: (String) -> Unit) :
+class TwitterTimelineAdapter(private val onclickTweet: (Pair<String, String>) -> Unit) :
     ListAdapter<SingleTweetPresentation, TwitterTimelineAdapter.ViewHolder>(
         TimelineDiffCallback()
     ) {
@@ -24,13 +24,14 @@ class TwitterTimelineAdapter(private val onclickTweet: (String) -> Unit) :
 
         val imageLoader = ImageLoader(binding.root.context)
         fun bind(
-            onclickTweet: (String) -> Unit,
+            onclickTweet: (Pair<String, String>) -> Unit,
             item: SingleTweetPresentation,
         ) {
             binding.singleTweetText.text = item.text
-
+            var name = ""
             item.tweetAuthor?.let { tweetAuthor ->
                 binding.userHandleTextView.text = tweetAuthor.userName
+                name = tweetAuthor.userName.removePrefix("@")
                 binding.userNameTextView.text = tweetAuthor.name
                 imageLoader.loadCircleImage(tweetAuthor.profileImage, binding.profileImageView)
             }
@@ -40,7 +41,7 @@ class TwitterTimelineAdapter(private val onclickTweet: (String) -> Unit) :
             }
 
             binding.root.setOnClickListener {
-                onclickTweet(item.id)
+                onclickTweet(Pair(name, item.id))
             }
 
             binding.executePendingBindings()

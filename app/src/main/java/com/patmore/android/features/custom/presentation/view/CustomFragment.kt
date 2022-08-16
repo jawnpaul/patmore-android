@@ -1,7 +1,9 @@
 package com.patmore.android.features.custom.presentation.view
 
 import android.app.Activity.RESULT_OK
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +25,6 @@ import com.patmore.android.features.custom.presentation.viewmodel.CustomViewMode
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -125,8 +126,9 @@ class CustomFragment : Fragment() {
 
             if (it.response != null) {
                 viewModel.unSetUserGotten()
-                Timber.e(it.response.size.toString())
                 timelineAdapter.submitList(it.response)
+
+                // customViewModel.getUserFollowers()
             }
 
             if (it.error != null) {
@@ -138,7 +140,22 @@ class CustomFragment : Fragment() {
     }
 
     private fun setUpListAdapter() {
-        timelineAdapter = TwitterTimelineAdapter { id ->
+        timelineAdapter = TwitterTimelineAdapter { pair ->
+            val url = "https://twitter.com/${pair.first}/status/${pair.second}"
+
+            try {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+                intent.setPackage("com.twitter.android")
+                startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(url)
+                    )
+                )
+            }
         }
         context?.let {
             binding.tweetsRecyclerView.initRecyclerViewWithLineDecoration(it)
