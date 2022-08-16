@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.patmore">
+    package="com.patmore.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".PatmoreApplication"
+        android:name="com.patmore.android.PatmoreApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,13 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Patmore">
         <activity
-            android:name=".features.authentication.presentation.view.TwitterAuthenticationActivity"
+            android:name="com.patmore.android.features.authentication.presentation.view.TwitterAuthenticationActivity"
             android:exported="false" />
         <activity
-            android:name=".features.onboarding.OnboardingActivity"
+            android:name="com.patmore.android.features.onboarding.OnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".features.splash.SplashActivity"
+            android:name="com.patmore.android.features.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".features.home.presentation.view.MainActivity"
+            android:name="com.patmore.android.features.home.presentation.view.MainActivity"
             android:exported="true" />
     </application>
 

@@ -136,7 +136,7 @@
                         android:textAppearance="@style/textHelper"
                         app:layout_constraintTop_toBottomOf="@id/headline" />
 
-                    <com.android.patmore.core.utility.ProgressButton
+                    <com.patmore.android.core.utility.ProgressButton
                         android:id="@+id/login_button"
                         style="@style/Widget.ProgressButton.Purple"
                         android:layout_width="match_parent"

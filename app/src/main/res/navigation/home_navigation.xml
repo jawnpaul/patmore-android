@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/forYouFragment"
-        android:name="com.android.patmore.features.foryou.presentation.view.ForYouFragment"
+        android:name="com.patmore.android.features.foryou.presentation.view.ForYouFragment"
         android:label="fragment_for_you"
         tools:layout="@layout/fragment_for_you">
         <action
@@ -27,16 +27,16 @@
     </fragment>
     <fragment
         android:id="@+id/customFragment"
-        android:name="com.android.patmore.features.custom.presentation.view.CustomFragment"
+        android:name="com.patmore.android.features.custom.presentation.view.CustomFragment"
         android:label="fragment_custom"
         tools:layout="@layout/fragment_custom" />
     <fragment
         android:id="@+id/singleForYouTweetFragment"
-        android:name="com.android.patmore.features.foryou.presentation.view.SingleForYouTweetFragment"
+        android:name="com.patmore.android.features.foryou.presentation.view.SingleForYouTweetFragment"
         android:label="fragment_single_for_you_tweet"
         tools:layout="@layout/fragment_single_for_you_tweet" />
     <fragment
         android:id="@+id/allCategoryTweetFragment"
-        android:name="com.android.patmore.features.foryou.presentation.view.AllCategoryTweetFragment"
+        android:name="com.patmore.android.features.foryou.presentation.view.AllCategoryTweetFragment"
         android:label="AllCategoryTweetFragment" />
 </navigation>
