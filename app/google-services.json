@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:475191865985:android:de34af78aa11ddb7899380",
+        "mobilesdk_app_id": "1:475191865985:android:528d2bb82e585632899380",
         "android_client_info": {
-          "package_name": "com.android.patmore"
+          "package_name": "com.patmore.android"
         }
       },
       "oauth_client": [
