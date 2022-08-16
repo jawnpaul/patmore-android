@@ -1,5 +1,8 @@
 package com.patmore.android.features.foryou.presentation.view
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +34,9 @@ class SingleForYouTweetFragment : Fragment() {
     private val forYouViewModel: ForYouViewModel by activityViewModels()
 
     private val TAG = SingleForYouTweetFragment::class.simpleName
+
+    private var name: String = ""
+    private var id: String = ""
 
     @Inject
     lateinit var mixPanelUtil: MixPanelUtil
@@ -186,8 +192,10 @@ class SingleForYouTweetFragment : Fragment() {
                 it.mediaList?.let { it1 -> renderMedia(binding.singleTweetMediaContainer, it1) }
                 binding.toolbarTitle.text = it.category?.lowercase()?.capitalizeFirstLetter()
                 binding.singleTweetText.text = it.text
+                id = it.id
 
                 it.tweetAuthor?.let { tweetAuthor ->
+                    name = tweetAuthor.userName.removePrefix("@")
 
                     binding.userHandleTextView.text = tweetAuthor.userName
                     binding.userNameTextView.text = tweetAuthor.name
@@ -199,6 +207,25 @@ class SingleForYouTweetFragment : Fragment() {
 
         binding.toolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.mainLayout.setOnClickListener {
+
+            val url = "https://twitter.com/$name/status/$id"
+
+            try {
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(url)
+                intent.setPackage("com.twitter.android")
+                startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(url)
+                    )
+                )
+            }
         }
 
         mixPanelUtil.logScreen(TAG)

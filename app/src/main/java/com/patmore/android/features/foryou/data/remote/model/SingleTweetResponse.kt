@@ -1,6 +1,7 @@
 package com.patmore.android.features.foryou.data.remote.model
 
 import android.os.Parcelable
+import com.patmore.android.features.followers.data.local.model.FollowerEntity
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 
@@ -42,7 +43,10 @@ data class TweetAuthor(
     @field:Json(name = "id") val id: String,
     @field:Json(name = "username") val userName: String,
     @field:Json(name = "profile_image_url") val profileImage: String,
-) : Parcelable
+) : Parcelable {
+    fun toFollowerEntity() =
+        FollowerEntity(id = id, name = name, userName = userName, profileImageUrl = profileImage)
+}
 
 data class UserTimelineResponse(
     @field:Json(name = "data") val data: List<Res>,

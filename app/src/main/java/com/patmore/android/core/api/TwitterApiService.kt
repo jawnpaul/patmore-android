@@ -1,6 +1,7 @@
 package com.patmore.android.core.api
 
 import com.patmore.android.features.custom.data.remote.SingleTwitterUser
+import com.patmore.android.features.custom.data.remote.UserFollowerResponse
 import com.patmore.android.features.foryou.data.remote.model.SingleTweetResponse
 import com.patmore.android.features.foryou.data.remote.model.UserTimelineResponse
 import com.tycz.tweedle.lib.authentication.OAuth2PKCEResponse
@@ -44,4 +45,12 @@ interface TwitterApiService {
         @Field("grant_type") grantType: String,
         @Field("client_id") clientId: String,
     ): Response<OAuth2PKCEResponse>
+
+    @GET("users/{id}/followers")
+    suspend fun getUserFollowing(
+        @Path("id") userId: String,
+        @Query("user.fields") userFields: String,
+        @Query("pagination_token") paginationToken: String?,
+        @Query("max_results") maxResults: Int,
+    ): Response<UserFollowerResponse>
 }

@@ -206,6 +206,11 @@ dependencies {
         }
     }
 
+    //persistence
+    implementation Libraries.room
+    kapt Libraries.roomCompiler
+    implementation Libraries.roomKTX
+
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore
     testImplementation TestLibraries.junit

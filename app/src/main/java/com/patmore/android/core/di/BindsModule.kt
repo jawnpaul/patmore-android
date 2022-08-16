@@ -6,6 +6,8 @@ import com.patmore.android.features.authentication.data.repository.Authenticatio
 import com.patmore.android.features.authentication.domain.repository.IAuthenticationRepository
 import com.patmore.android.features.custom.data.repository.CustomRepository
 import com.patmore.android.features.custom.domain.repository.ICustomRepository
+import com.patmore.android.features.followers.data.repository.FollowersRepository
+import com.patmore.android.features.followers.domain.repository.IFollowersRepository
 import com.patmore.android.features.foryou.data.repository.ForYouRepository
 import com.patmore.android.features.foryou.domain.repository.IForYouRepository
 import com.patmore.android.features.subscription.data.repository.SubscriptionRepository
@@ -33,4 +35,7 @@ abstract class BindsModule {
 
     @Binds
     abstract fun bindsCustomRepository(repository: CustomRepository): ICustomRepository
+
+    @Binds
+    abstract fun bindsFollowersRepository(repository: FollowersRepository): IFollowersRepository
 }

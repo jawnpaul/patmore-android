@@ -68,7 +68,8 @@ ext {
             lottie             : "4.1.0",
             groupie            : "2.10.0",
             storiesProgress    : "1.1.4",
-            tweedle            : "0.5.2"
+            tweedle            : "0.5.2",
+            room               : "2.4.0-alpha03"
     ]
 
     Libraries = [
@@ -99,7 +100,10 @@ ext {
             groupie            : "com.github.lisawray.groupie:groupie:$LibrariesVersion.groupie",
             groupieDataBinding : "com.github.lisawray.groupie:groupie-databinding:$LibrariesVersion.groupie",
             storiesProgress    : "com.github.teresaholfeld:Stories:$LibrariesVersion.storiesProgress",
-            tweedle            : "io.github.tyczj:tweedle-android:$LibrariesVersion.tweedle"
+            tweedle            : "io.github.tyczj:tweedle-android:$LibrariesVersion.tweedle",
+            room               : "androidx.room:room-runtime:$LibrariesVersion.room",
+            roomCompiler       : "androidx.room:room-compiler:$LibrariesVersion.room",
+            roomKTX            : "androidx.room:room-ktx:$LibrariesVersion.room",
 
     ]
 
@@ -132,7 +136,8 @@ ext {
             hiltKapt              : "com.google.dagger:hilt-android-compiler:$hilt_version",
             espresso              : "androidx.test.espresso:espresso-core:$TestLibrariesVersion.espresso",
             espressoIdlingResource: "androidx.test.espresso:espresso-idling-resource:$TestLibrariesVersion.espresso",
-            espressoContrib       : "androidx.test.espresso:espresso-contrib:$TestLibrariesVersion.espresso"
+            espressoContrib       : "androidx.test.espresso:espresso-contrib:$TestLibrariesVersion.espresso",
+            room                  : "androidx.room:room-testing:$LibrariesVersion.room",
     ]
 
 }
