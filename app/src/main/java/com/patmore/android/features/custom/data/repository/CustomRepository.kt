@@ -34,7 +34,7 @@ class CustomRepository @Inject constructor(
                 val expansions = "attachments.media_keys,author_id"
                 val mediaFields = "type,media_key,preview_image_url,url"
                 val userFields = "profile_image_url,name,username,id"
-                val exclude = "retweets,replies"
+                val exclude = "retweets"
                 val res =
                     twitterApiService.getUserHomeTimeline(
                         userId = sharedPreferences.getTwitterUserId()!!,
