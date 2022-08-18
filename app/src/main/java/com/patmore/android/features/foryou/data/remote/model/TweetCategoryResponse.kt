@@ -30,10 +30,17 @@ data class ForYouResponse(
 
 data class ForYouData(
 
-    @field:Json(name = "anime") val anime: List<TweetResponse>? = null,
-    @field:Json(name = "sport") val sport: List<TweetResponse>? = null,
-    @field:Json(name = "business") val business: List<TweetResponse>? = null,
-    @field:Json(name = "technology") val technology: List<TweetResponse>? = null,
+    @field:Json(name = "food") val food: List<TweetResponse>? = null,
     @field:Json(name = "music") val music: List<TweetResponse>? = null,
     @field:Json(name = "travel") val travel: List<TweetResponse>? = null,
+    @field:Json(name = "sports") val sports: List<TweetResponse>? = null,
+    @field:Json(name = "careers") val careers: List<TweetResponse>? = null,
+    @field:Json(name = "fitness") val fitness: List<TweetResponse>? = null,
+    @field:Json(name = "science") val science: List<TweetResponse>? = null,
+    @field:Json(name = "business") val business: List<TweetResponse>? = null,
+    @field:Json(name = "technology") val technology: List<TweetResponse>? = null,
+    @field:Json(name = "arts and culture") val artsAndCulture: List<TweetResponse>? = null,
+    @field:Json(name = "fashion and beauty") val fashionAndBeauty: List<TweetResponse>? = null,
+    @field:Json(name = "animation and comics") val anime: List<TweetResponse>? = null,
+    @field:Json(name = "family and relationships") val familyAndRelationships: List<TweetResponse>? = null,
 )

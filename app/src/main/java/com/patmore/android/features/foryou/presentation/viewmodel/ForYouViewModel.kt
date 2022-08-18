@@ -104,6 +104,7 @@ class ForYouViewModel @Inject constructor(
             val sections = arrayListOf<Section>()
 
             val pp = result.map { aa -> getPresentation(aa.toPresentation()) }.filter { it.mediaList?.isNotEmpty() == true }
+            // val pp = result.map { aa -> getPresentation(aa.toPresentation()) }.filter { it.mediaList?.isNotEmpty() == true }
 
             // The idea here is to remove tweets without media
             val cl = pp.map { it.category }.distinct()

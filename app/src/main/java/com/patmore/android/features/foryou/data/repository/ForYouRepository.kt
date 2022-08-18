@@ -169,7 +169,7 @@ class ForYouRepository @Inject constructor(
         val aa = mutableListOf<Pair<String, List<String>>>()
 
         data.anime?.let {
-            val res = "anime" to it.map { xa -> xa.tweetId }
+            val res = "animation and comics" to it.map { xa -> xa.tweetId }
             aa.add(res)
         }
 
@@ -178,8 +178,8 @@ class ForYouRepository @Inject constructor(
             aa.add(res)
         }
 
-        data.sport?.let {
-            val res = "sport" to it.map { xa -> xa.tweetId }
+        data.sports?.let {
+            val res = "sports" to it.map { xa -> xa.tweetId }
             aa.add(res)
         }
 
@@ -195,6 +195,41 @@ class ForYouRepository @Inject constructor(
 
         data.business?.let {
             val res = "business" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.food?.let {
+            val res = "food" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.careers?.let {
+            val res = "careers" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.fitness?.let {
+            val res = "fitness" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.science?.let {
+            val res = "science" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.artsAndCulture?.let {
+            val res = "arts and culture" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.fashionAndBeauty?.let {
+            val res = "fashion and beauty" to it.map { xa -> xa.tweetId }
+            aa.add(res)
+        }
+
+        data.familyAndRelationships?.let {
+            val res = "family and relationships" to it.map { xa -> xa.tweetId }
             aa.add(res)
         }
 
