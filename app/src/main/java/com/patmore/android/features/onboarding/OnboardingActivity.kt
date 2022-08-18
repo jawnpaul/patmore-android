@@ -41,14 +41,65 @@ class OnboardingActivity : AppCompatActivity() {
 
         authenticationViewModel.getToken()
 
-        /*binding.technologyChip.setOnClickListener {
-            enableButton()
-            if (categories.contains("technology")) {
-                categories.remove("technology")
+        binding.scienceChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                // nothing selected in group
+                // remove from set
+                categories.remove("science")
             } else {
-                categories.add("technology")
+                // add to set
+                categories.add("science")
             }
-        }*/
+            enableButton()
+        }
+
+        binding.familyChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                // nothing selected in group
+                // remove from set
+                categories.remove("family and relationships")
+            } else {
+                // add to set
+                categories.add("family and relationships")
+            }
+            enableButton()
+        }
+
+        binding.fashionChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                // nothing selected in group
+                // remove from set
+                categories.remove("fashion and beauty")
+            } else {
+                // add to set
+                categories.add("fashion and beauty")
+            }
+            enableButton()
+        }
+
+        binding.foodChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                // nothing selected in group
+                // remove from set
+                categories.remove("food")
+            } else {
+                // add to set
+                categories.add("food")
+            }
+            enableButton()
+        }
+
+        binding.fitnessChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                // nothing selected in group
+                // remove from set
+                categories.remove("fitness")
+            } else {
+                // add to set
+                categories.add("fitness")
+            }
+            enableButton()
+        }
 
         binding.technologyChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
 
@@ -60,16 +111,6 @@ class OnboardingActivity : AppCompatActivity() {
             enableButton()
         }
 
-        /* binding.businessChip.setOnClickListener {
-             enableButton()
-
-             if (categories.contains("business")) {
-                 categories.remove("business")
-             } else {
-                 categories.add("business")
-             }
-         }*/
-
         binding.businessChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
 
             if (checkedIds.isEmpty()) {
@@ -80,35 +121,15 @@ class OnboardingActivity : AppCompatActivity() {
             enableButton()
         }
 
-        /*binding.sportChip.setOnClickListener {
-            enableButton()
-
-            if (categories.contains("sport")) {
-                categories.remove("sport")
-            } else {
-                categories.add("sport")
-            }
-        }*/
-
         binding.sportChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
 
             if (checkedIds.isEmpty()) {
-                categories.remove("sport")
+                categories.remove("sports")
             } else {
-                categories.add("sport")
+                categories.add("sports")
             }
             enableButton()
         }
-
-        /*binding.musicChip.setOnClickListener {
-            enableButton()
-
-            if (categories.contains("music")) {
-                categories.remove("music")
-            } else {
-                categories.add("music")
-            }
-        }*/
 
         binding.musicChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
 
@@ -120,16 +141,6 @@ class OnboardingActivity : AppCompatActivity() {
             enableButton()
         }
 
-        /*binding.travelChip.setOnClickListener {
-            enableButton()
-
-            if (categories.contains("travel")) {
-                categories.remove("travel")
-            } else {
-                categories.add("travel")
-            }
-        }*/
-
         binding.travelChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
             if (checkedIds.isEmpty()) {
                 categories.remove("travel")
@@ -139,33 +150,42 @@ class OnboardingActivity : AppCompatActivity() {
             enableButton()
         }
 
-        /*binding.animeChip.setOnClickListener {
-            enableButton()
-
-            if (categories.contains("anime")) {
-                categories.remove("anime")
-            } else {
-                categories.add("anime")
-            }
-        }*/
-
         binding.animeChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
 
             if (checkedIds.isEmpty()) {
                 // nothing selected in group
                 // remove from set
-                categories.remove("anime")
+                categories.remove("animation and comics")
             } else {
                 // add to set
-                categories.add("anime")
+                categories.add("animation and comics")
             }
             enableButton()
         }
 
         binding.artsChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                // nothing selected in group
+                // remove from set
+                categories.remove("arts and culture")
+            } else {
+                // add to set
+                categories.add("arts and culture")
+            }
+            enableButton()
         }
 
-        // TODO:Add other categories in the backend and implement in app
+        binding.careersChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
+            if (checkedIds.isEmpty()) {
+                // nothing selected in group
+                // remove from set
+                categories.remove("careers")
+            } else {
+                // add to set
+                categories.add("careers")
+            }
+            enableButton()
+        }
 
         binding.onboardingButton.setOnClickListener {
             val list = categories.toList()
