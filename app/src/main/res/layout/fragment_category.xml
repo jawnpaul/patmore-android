@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".features.foryou.presentation.view.CategoryFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+
+                    <ImageView
+                        android:id="@+id/profile_image_view"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/sixteen"
+                        android:layout_marginTop="@dimen/sixteen" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/sixteen"
+                        android:layout_marginEnd="@dimen/sixteen"
+                        android:src="@drawable/ic_twitter_logo" />
+
+                    <TextView
+                        android:id="@+id/user_name_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/sixteen"
+                        android:layout_marginTop="@dimen/eight"
+                        android:layout_toEndOf="@id/profile_image_view"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textAppearance="@style/textUserName"
+                        tools:text="Android dev" />
+
+                    <TextView
+                        android:id="@+id/user_handle_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/user_name_text_view"
+                        android:layout_marginStart="@dimen/sixteen"
+                        android:layout_marginTop="@dimen/eight"
+                        android:layout_toEndOf="@id/profile_image_view"
+                        android:textAppearance="@style/textUserHandle"
+                        tools:text="Twitter_dev" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/single_tweet_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/sixteen"
+                    android:textAppearance="@style/textTweet"
+                    tools:text="I am the leader of the new world where android is king better days are coming to this new world too" />
+
+                <FrameLayout
+                    android:id="@+id/single_tweet_media_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/sixteen">
+
+                    <include
+                        layout="@layout/twitter_one_image"
+                        android:visibility="gone" />
+
+                    <include
+                        layout="@layout/twitter_two_image"
+                        android:visibility="gone" />
+
+                    <include
+                        layout="@layout/twitter_three_image"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <include
+                        layout="@layout/twitter_four_image"
+                        android:visibility="gone" />
+
+                    <include
+                        layout="@layout/twitter_video_layout"
+                        android:visibility="gone" />
+
+                    <include
+                        layout="@layout/twitter_gif_layout"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

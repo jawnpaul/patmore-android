@@ -1,16 +1,103 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Patmore" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Patmore" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorPrimary">@color/twitterBlue</item>
+        <item name="colorPrimaryVariant">@color/twitterBlack</item>
+        <item name="colorOnPrimary">@color/twitterWhite</item>
+        <item name="android:textColorPrimary">@color/twitterWhite</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
     </style>
+
+    <style name="textBody">
+        <item name="android:textSize">16sp</item>
+        <item name="fontWeight">500</item>
+        <item name="android:fontFamily">@font/dm_sans_medium</item>
+        <item name="android:textColor">@color/twitterWhite</item>
+    </style>
+
+    <style name="textUserName">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/twitterWhite</item>
+        <item name="android:fontFamily">@font/dm_sans_medium</item>
+    </style>
+
+    <style name="textUserHandle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/twitterWhite</item>
+        <item name="android:fontFamily">@font/dm_sans_italics</item>
+    </style>
+
+    <style name="textTweet">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/twitterWhite</item>
+        <item name="android:fontFamily">@font/dm_sans_regular</item>
+        <item name="lineSpacing">20sp</item>
+    </style>
+
+    <style name="textBold">
+        <item name="android:textSize">24sp</item>
+        <item name="fontWeight">700</item>
+        <item name="android:textColor">@color/twitterWhite</item>
+        <item name="android:fontFamily">@font/dm_sans_bold</item>
+    </style>
+
+    <style name="textTime">
+        <item name="android:textSize">24sp</item>
+        <item name="fontWeight">700</item>
+        <item name="android:textColor">@color/twitterWhite</item>
+        <item name="android:fontFamily">@font/dm_sans_regular</item>
+    </style>
+
+    <style name="textHelper">
+        <item name="android:textSize">16sp</item>
+        <item name="fontWeight">400</item>
+        <item name="android:textColor">@color/twitterWhite</item>
+        <item name="android:fontFamily">@font/dm_sans_regular</item>
+    </style>
+
+    <style name="fourRoundedEdgeImageView" parent="">
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
+    </style>
+
+    <style name="leftImageTwoImageView" parent="">
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+    </style>
+
+    <style name="oneImageImageView" parent="">
+        <item name="cornerSizeTopLeft">8dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
+    </style>
+
+    <style name="rightImageTwoImageView" parent="">
+        <item name="cornerSizeTopRight">8dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
+    </style>
+
+    <style name="topImageThreeImageView" parent="">
+        <item name="cornerSizeTopRight">8dp</item>
+    </style>
+
+    <style name="topLeftImageFourImageView" parent="">
+        <item name="cornerSizeTopLeft">8dp</item>
+    </style>
+
+    <style name="bottomLeftImageFourImageView" parent="">
+        <item name="cornerSizeBottomLeft">8dp</item>
+    </style>
+
+    <style name="bottomImageThreeImageView" parent="">
+        <item name="cornerSizeBottomRight">8dp</item>
+    </style>
+
 </resources>

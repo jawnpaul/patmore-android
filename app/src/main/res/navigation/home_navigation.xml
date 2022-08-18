@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/forYouFragment">
+
+    <fragment
+        android:id="@+id/forYouFragment"
+        android:name="com.patmore.android.features.foryou.presentation.view.ForYouFragment"
+        android:label="fragment_for_you"
+        tools:layout="@layout/fragment_for_you">
+        <action
+            android:id="@+id/action_forYouFragment_to_singleForYouTweetFragment"
+            app:destination="@id/singleForYouTweetFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_forYouFragment_to_allCategoryTweetFragment"
+            app:destination="@id/allCategoryTweetFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/customFragment"
+        android:name="com.patmore.android.features.custom.presentation.view.CustomFragment"
+        android:label="fragment_custom"
+        tools:layout="@layout/fragment_custom" />
+    <fragment
+        android:id="@+id/singleForYouTweetFragment"
+        android:name="com.patmore.android.features.foryou.presentation.view.SingleForYouTweetFragment"
+        android:label="fragment_single_for_you_tweet"
+        tools:layout="@layout/fragment_single_for_you_tweet" />
+    <fragment
+        android:id="@+id/allCategoryTweetFragment"
+        android:name="com.patmore.android.features.foryou.presentation.view.AllCategoryTweetFragment"
+        android:label="AllCategoryTweetFragment" />
+</navigation>

@@ -1,17 +1,23 @@
 ext {
 
     //Kotlin
-    kotlin_version = "1.5.21"
+    kotlin_version = "1.6.20"
     //Hilt
     hilt_version = "2.38.1"
     //Nav Args
     nav_args = "2.3.5"
+    //Google Services
+    google_services = "4.3.8"
+    //Firebase
+    firebase_crashlytics_gradle_version = "2.7.0"
+    //Firebase Performance
+    firebase_performance = "1.4.0"
 
 
     AndroidSdk = [
-            compileSdk: 30,
-            targetSdk : 30,
-            minSdk    : 21,
+            compileSdk: 31,
+            targetSdk : 31,
+            minSdk    : 26,
             buildTools: "30.0.3"
     ]
 
@@ -26,20 +32,23 @@ ext {
             daggerHilt         : "dagger.hilt.android.plugin",
             kotlinParcelize    : "kotlin-parcelize",
             jacocoCorePlugin   : "org.jacoco:org.jacoco.core:0.8.4",
-            navArgs            : "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_args"
+            googleServices     : "com.google.gms:google-services:$google_services",
+            firebase           : "com.google.firebase:firebase-crashlytics-gradle:$firebase_crashlytics_gradle_version",
+            navArgs            : "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_args",
+            firebasePerformance: "com.google.firebase:perf-plugin:$firebase_performance"
     ]
 
 
     AndroidClient = [
-            appId      : "com.android.patmore",
+            appId      : "com.patmore.android",
             versionCode: 1,
-            versionName: "1.0"
+            versionName: "1.0.0"
     ]
 
     LibrariesVersion = [
             appCompat          : "1.2.0",
             fragmentKtx        : "1.4.0-alpha06",
-            materialDesign     : "1.3.0",
+            materialDesign     : "1.6.0",
             androidCore        : "1.3.2",
             constraintLayout   : "2.0.4",
             okHTTPLogger       : "4.9.0",
@@ -48,7 +57,19 @@ ext {
             moshiConverter     : "2.9.0",
             coroutines         : "1.4.2",
             timber             : "4.7.1",
-            coil               : "1.4.0",
+            coil               : "2.1.0",
+            firebaseCrashlytics: "18.0.1",
+            firebaseAnalytics  : "19.0.0",
+            firebaseMessaging  : "20.3.0",
+            firebasePerformance: "20.0.4",
+            glide              : "4.13.2",
+            relativeTime       : "4.0.3",
+            mixpanel           : "5.9.5",
+            lottie             : "4.1.0",
+            groupie            : "2.10.0",
+            storiesProgress    : "1.1.4",
+            tweedle            : "0.5.2",
+            room               : "2.4.0-alpha03"
     ]
 
     Libraries = [
@@ -67,6 +88,22 @@ ext {
             coroutinesAndroid  : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$LibrariesVersion.coroutines",
             timber             : "com.jakewharton.timber:timber:$LibrariesVersion.timber",
             coil               : "io.coil-kt:coil:$LibrariesVersion.coil",
+            firebaseCrashlytics: "com.google.firebase:firebase-crashlytics-ktx:$LibrariesVersion.firebaseCrashlytics",
+            firebaseAnalytics  : "com.google.firebase:firebase-analytics-ktx:$LibrariesVersion.firebaseAnalytics",
+            firebaseMessaging  : "com.google.firebase:firebase-messaging-ktx:$LibrariesVersion.firebaseMessaging",
+            firebasePerformance: "com.google.firebase:firebase-perf-ktx:$LibrariesVersion.firebasePerformance",
+            glide              : "com.github.bumptech.glide:glide:$LibrariesVersion.glide",
+            glideProcessor     : "com.github.bumptech.glide:compiler:$LibrariesVersion.glide",
+            relativeTime       : "com.github.marlonlom:timeago:$LibrariesVersion.relativeTime",
+            mixpanel           : "com.mixpanel.android:mixpanel-android:$LibrariesVersion.mixpanel",
+            lottie             : "com.airbnb.android:lottie:$LibrariesVersion.lottie",
+            groupie            : "com.github.lisawray.groupie:groupie:$LibrariesVersion.groupie",
+            groupieDataBinding : "com.github.lisawray.groupie:groupie-databinding:$LibrariesVersion.groupie",
+            storiesProgress    : "com.github.teresaholfeld:Stories:$LibrariesVersion.storiesProgress",
+            tweedle            : "io.github.tyczj:tweedle-android:$LibrariesVersion.tweedle",
+            room               : "androidx.room:room-runtime:$LibrariesVersion.room",
+            roomCompiler       : "androidx.room:room-compiler:$LibrariesVersion.room",
+            roomKTX            : "androidx.room:room-ktx:$LibrariesVersion.room",
 
     ]
 
@@ -79,7 +116,7 @@ ext {
             jUnit       : "4.13.1",
             androidX    : "1.1.2",
             truth       : "1.1",
-            fragmentTest: "1.3.0",
+            fragmentTest: "1.4.0-alpha03",
             androidArch : "2.1.0",
             espresso    : "3.1.0"
     ]
@@ -99,7 +136,8 @@ ext {
             hiltKapt              : "com.google.dagger:hilt-android-compiler:$hilt_version",
             espresso              : "androidx.test.espresso:espresso-core:$TestLibrariesVersion.espresso",
             espressoIdlingResource: "androidx.test.espresso:espresso-idling-resource:$TestLibrariesVersion.espresso",
-            espressoContrib       : "androidx.test.espresso:espresso-contrib:$TestLibrariesVersion.espresso"
+            espressoContrib       : "androidx.test.espresso:espresso-contrib:$TestLibrariesVersion.espresso",
+            room                  : "androidx.room:room-testing:$LibrariesVersion.room",
     ]
 
 }

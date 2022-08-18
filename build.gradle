@@ -11,6 +11,9 @@ buildscript {
         classpath BuildPlugins.hiltGradlePlugin
         classpath BuildPlugins.jacocoCorePlugin
         classpath BuildPlugins.navArgs
+        classpath BuildPlugins.googleServices
+        classpath BuildPlugins.firebase
+        classpath BuildPlugins.firebasePerformance
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

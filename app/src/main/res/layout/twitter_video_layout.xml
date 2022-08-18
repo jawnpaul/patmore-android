@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/videoContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/eight"
+    android:layout_marginTop="@dimen/eight"
+    android:layout_marginEnd="@dimen/eight">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/videoImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:shapeAppearanceOverlay="@style/oneImageImageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <ImageView
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/ic_baseline_play_circle_outline_24"
+        app:tint="@color/twitterBlue" />
+
+</FrameLayout>

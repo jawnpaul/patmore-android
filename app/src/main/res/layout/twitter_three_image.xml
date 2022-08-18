@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/threeMediaContainer"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_marginStart="@dimen/four"
+    android:layout_marginTop="@dimen/eight"
+    android:layout_marginEnd="@dimen/eight">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/threeImageMediaOne"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/threeImageMediaTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".48"
+        app:shapeAppearanceOverlay="@style/leftImageTwoImageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[12]" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/threeImageMediaTwo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".48"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".48"
+        app:shapeAppearanceOverlay="@style/topImageThreeImageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[17]" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/threeImageMediaThree"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".48"
+        app:layout_constraintTop_toBottomOf="@+id/threeImageMediaTwo"
+        app:layout_constraintWidth_percent=".48"
+        app:shapeAppearanceOverlay="@style/bottomImageThreeImageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[9]" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

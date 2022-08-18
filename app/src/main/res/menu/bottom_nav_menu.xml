@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/forYouFragment"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/for_you" />
+
+    <item
+        android:id="@+id/customFragment"
+        android:icon="@drawable/ic_baseline_dashboard_24"
+        android:title="@string/custom" />
+
+</menu>

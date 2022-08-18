@@ -31,6 +31,19 @@ jobs:
           distribution: 'adopt'
           java-version: 11
           
+          
+      - name: Create properties file
+        uses: "finnp/create-file-action@af8500fe0b0c5d8e04934f8bb62b9dda872c5803"
+        env:
+            FILE_NAME: "local.properties"
+            run: |
+                echo "PATMORE_BASE_URL=${{ secrets.PATMORE_BASE_URL }}" > local.properties
+                echo "TWITTER_BASE_URL=${{ secrets.TWITTER_BASE_URL }}" >> local.properties
+                echo "MIXPANEL_TOKEN=${{ secrets.MIXPANEL_TOKEN }}" >> local.properties
+                echo "TWITTER_TOKEN=${{ secrets.TWITTER_TOKEN }}" >> local.properties
+                echo "TWITTER_CLIENT_ID=${{ secrets.TWITTER_CLIENT_ID }}" >> local.properties
+                echo "TWITTER_CALLBACK_URL=${{ secrets.TWITTER_CALLBACK_URL }}" >> local.properties
+          
             
       - name: Run Ktlint
         run: ./gradlew ktlintFormat

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/twoMediaContainer"
+    android:layout_width="match_parent"
+    android:layout_marginStart="@dimen/eight"
+    android:layout_marginEnd="@dimen/eight"
+    android:layout_marginTop="@dimen/eight"
+    android:layout_height="300dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/twoImageMediaOne"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/twoImageMediaTwo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".49"
+        android:layout_marginEnd="@dimen/four"
+        app:shapeAppearanceOverlay="@style/leftImageTwoImageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/twoImageMediaTwo"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/twoImageMediaOne"
+        app:layout_constraintTop_toBottomOf="@+id/twoImageMediaOne"
+        app:layout_constraintWidth_percent=".49"
+        app:shapeAppearanceOverlay="@style/rightImageTwoImageView"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[15]" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

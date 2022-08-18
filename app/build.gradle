@@ -7,6 +7,9 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 jacoco {
@@ -56,6 +59,10 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 }
 
 android {
+
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
     compileSdkVersion AndroidSdk.compileSdk
     buildToolsVersion AndroidSdk.buildTools
 
@@ -71,8 +78,34 @@ android {
 
     buildTypes {
         release {
+            buildConfigField("String", "PATMORE_BASE_URL", "\"" + localProperties['PATMORE_BASE_URL'] + "\"")
+            buildConfigField("String", "TWITTER_BASE_URL", "\"" + localProperties['TWITTER_BASE_URL'] + "\"")
+            buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_PROD_TOKEN'] + "\"")
+            buildConfigField("String", "TWITTER_TOKEN", "\"" + localProperties['TWITTER_BEARER_TOKEN'] + "\"")
+            buildConfigField("String", "TWITTER_CLIENT_ID", "\"" + localProperties['TWITTER_CLIENT_ID'] + "\"")
+            buildConfigField("String", "TWITTER_CALLBACK_URL", "\"" + localProperties['TWITTER_CALLBACK_URL'] + "\"")
+            
+
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField("String", "PATMORE_BASE_URL", "\"" + localProperties['PATMORE_BASE_URL'] + "\"")
+            buildConfigField("String", "TWITTER_BASE_URL", "\"" + localProperties['TWITTER_BASE_URL'] + "\"")
+            buildConfigField("String", "MIXPANEL_TOKEN", "\"" + localProperties['MIXPANEL_DEV_TOKEN'] + "\"")
+            buildConfigField("String", "TWITTER_TOKEN", "\"" + localProperties['TWITTER_BEARER_TOKEN'] + "\"")
+            buildConfigField("String", "TWITTER_CLIENT_ID", "\"" + localProperties['TWITTER_CLIENT_ID'] + "\"")
+            buildConfigField("String", "TWITTER_CALLBACK_URL", "\"" + localProperties['TWITTER_CALLBACK_URL'] + "\"")
+
+
+            shrinkResources false
+            minifyEnabled false
+            applicationIdSuffix '.dev'
+            versionNameSuffix '-dev'
+            debuggable true
+            zipAlignEnabled true
         }
     }
     compileOptions {
@@ -103,12 +136,13 @@ dependencies {
     implementation Libraries.materialDesign
     implementation Libraries.constraintLayout
 
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
 
     //hilt for DI
     implementation Libraries.hilt
@@ -130,6 +164,50 @@ dependencies {
 
     //Coil
     implementation Libraries.coil
+
+    //Firebase
+    implementation Libraries.firebaseCrashlytics
+    implementation Libraries.firebaseAnalytics
+    implementation Libraries.firebaseMessaging
+    implementation Libraries.firebasePerformance
+
+    //Glide
+    implementation Libraries.glide
+    kapt Libraries.glideProcessor
+
+    //RelativeTime
+    implementation Libraries.relativeTime
+
+    //Mixpanel
+    implementation Libraries.mixpanel
+
+    //Lottie
+    implementation Libraries.lottie
+
+    //Groupie
+    implementation Libraries.groupie
+    implementation Libraries.groupieDataBinding
+
+    //StoriesProgress
+    implementation Libraries.storiesProgress
+
+    //Palette
+    implementation "com.android.support:palette-v7:28.0.0"
+
+    //tweedle
+    implementation Libraries.tweedle
+
+    //coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1-native-mt"){
+        version {
+            strictly("1.4.1-native-mt")
+        }
+    }
+
+    //persistence
+    implementation Libraries.room
+    kapt Libraries.roomCompiler
+    implementation Libraries.roomKTX
 
     testImplementation TestLibraries.testCore
     testImplementation TestLibraries.archCore
