@@ -82,7 +82,7 @@ class ForYouViewModel @Inject constructor(
     }
 
     private fun getOriginalTweets(ids: List<String>) {
-        val id = getIds(ids)
+        val id = getIds(ids.take(100))
         getSingleOriginalTweetUseCase(job, id) {
             it.fold(
                 ::handleOriginalTweetFailure,
