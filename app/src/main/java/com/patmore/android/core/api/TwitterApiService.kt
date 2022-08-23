@@ -1,10 +1,10 @@
 package com.patmore.android.core.api
 
+import com.patmore.android.features.authentication.data.remote.oauth.OAuth2PCKEResponse
 import com.patmore.android.features.custom.data.remote.SingleTwitterUser
 import com.patmore.android.features.custom.data.remote.UserFollowerResponse
 import com.patmore.android.features.foryou.data.remote.model.SingleTweetResponse
 import com.patmore.android.features.foryou.data.remote.model.UserTimelineResponse
-import com.tycz.tweedle.lib.authentication.OAuth2PKCEResponse
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -44,7 +44,7 @@ interface TwitterApiService {
         @Field("refresh_token") refreshToken: String,
         @Field("grant_type") grantType: String,
         @Field("client_id") clientId: String,
-    ): Response<OAuth2PKCEResponse>
+    ): Response<OAuth2PCKEResponse>
 
     @GET("users/{id}/followers")
     suspend fun getUserFollowing(
@@ -53,4 +53,13 @@ interface TwitterApiService {
         @Query("pagination_token") paginationToken: String?,
         @Query("max_results") maxResults: Int,
     ): Response<UserFollowerResponse>
+
+    @POST("oauth2/token")
+    suspend fun getAccessToken(
+        @Query("code") code: String,
+        @Query("grant_type") grantType: String,
+        @Query("client_id") clientId: String,
+        @Query("redirect_uri") redirectUrl: String,
+        @Query("code_verifier") challenge: String,
+    ): Response<OAuth2PCKEResponse>
 }

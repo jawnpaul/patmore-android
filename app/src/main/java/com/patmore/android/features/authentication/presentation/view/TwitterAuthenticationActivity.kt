@@ -10,8 +10,8 @@ import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 import com.patmore.android.BuildConfig
 import com.patmore.android.R
-import com.tycz.tweedle.lib.authentication.Authentication2
-import com.tycz.tweedle.lib.authentication.oauth.OAuthScope
+import com.patmore.android.core.utility.generateAuthenticationUrl
+import com.patmore.android.features.authentication.data.remote.oauth.OAuthScope
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URLDecoder
 
@@ -56,7 +56,7 @@ class TwitterAuthenticationActivity : AppCompatActivity() {
         OAuthScope.LikeWrite,
         OAuthScope.LikeRead*/
 
-        val url = Authentication2.generateAuthenticationUrl(
+        val url = generateAuthenticationUrl(
             clientId,
             scopeList, callbackUrl, _state, challenge
         )

@@ -2,7 +2,7 @@ package com.patmore.android.core.api
 
 import com.patmore.android.BuildConfig
 import com.patmore.android.core.utility.SharedPreferences
-import com.tycz.tweedle.lib.authentication.OAuth2PKCEResponse
+import com.patmore.android.features.authentication.data.remote.oauth.OAuth2PCKEResponse
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
@@ -57,7 +57,7 @@ class TokenAuthenticator @Inject constructor() :
         return requestAvailable
     }
 
-    private suspend fun getToken(): OAuth2PKCEResponse? {
+    private suspend fun getToken(): OAuth2PCKEResponse? {
 
         val refreshToken = sharedPreferences.getTwitterUserRefreshToken()
         if (refreshToken == null) {
