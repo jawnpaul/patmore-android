@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.marlonlom.utilities.timeago.TimeAgo
+import com.patmore.android.features.authentication.data.remote.oauth.OAuthScope
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -59,4 +60,9 @@ fun RecyclerView.initRecyclerViewWithLineDecoration(context: Context) {
     val linearLayoutManager = LinearLayoutManager(context)
     layoutManager = linearLayoutManager
     addItemDecoration(DividerItemDecoration(context, linearLayoutManager.orientation))
+}
+
+fun generateAuthenticationUrl(clientId: String, scopes: List<OAuthScope>, callbackUrl: String, state: String, challenge: String): String {
+    val scope = scopes.joinToString("%20") { it.value }
+    return "https://twitter.com/i/oauth2/authorize?response_type=code&client_id=$clientId&redirect_uri=$callbackUrl&state=$state&code_challenge=$challenge&code_challenge_method=plain&scope=$scope"
 }
