@@ -99,9 +99,11 @@ The project uses ktlint to enforce proper code style. Github actions handles con
 
 ## Installation
 
-Minimum Api Level : 21
-compileSdkVersion : 31
-Build System : [Gradle](https://gradle.org/)
+Minimum Api Level: 21
+
+compileSdkVersion: 31
+
+Build System: [Gradle](https://gradle.org/)
 
 1. Get a free Twitter API credentials at [https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api)
 2. Get mixpanel token at [https://developer.mixpanel.com/docs](https://developer.mixpanel.com/docs)
@@ -129,13 +131,13 @@ Try it out on [Google playstore](https://play.google.com/store/apps/details?id=c
 
 Find below screenshots of the application
 
-|<img src="images/screen_1.png" width=200/>|<img src="images/screen_2.png" width=200/>|
+|<img src="https://user-images.githubusercontent.com/29982834/188141482-05b7b978-d1f4-454b-b1ac-1117031058e1.png" width=200/>|<img src="https://user-images.githubusercontent.com/29982834/188141528-2a87646f-64ed-443c-b11d-5dc0ce11207e.png" width=200/>|
 |:----:|:----:|
 
-|<img src="images/screen_3.png" width=200/>|<img src="images/screen_4.png" width=200/>|
+|<img src="https://user-images.githubusercontent.com/29982834/188141986-1ca56d51-f296-4997-a7a6-f1e9f6da5dfb.png" width=200/>|<img src="https://user-images.githubusercontent.com/29982834/188142088-ad44a9c1-e817-42b9-9e31-dc7f596c3da4.png" width=200/>|
 |:----:|:----:|
 
-|<img src="images/screen_5.png" width=200/>|<img src="images/screen_6.png" width=200/>|
+|<img src="https://user-images.githubusercontent.com/29982834/188142218-93070ef2-90df-41b1-b20d-05a2d6f88a2b.png" width=200/>|<img src="https://user-images.githubusercontent.com/29982834/188142311-1fea4204-cb68-4a3c-b3ac-60de6b54ca40.png" width=200/>|
 |:----:|:----:|
 
 ## License
