@@ -99,9 +99,11 @@ The project uses ktlint to enforce proper code style. Github actions handles con
 
 ## Installation
 
-Minimum Api Level : 21
-compileSdkVersion : 31
-Build System : [Gradle](https://gradle.org/)
+Minimum Api Level: 21
+
+compileSdkVersion: 31
+
+Build System: [Gradle](https://gradle.org/)
 
 1. Get a free Twitter API credentials at [https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api](https://developer.twitter.com/en/docs/twitter-api/getting-started/getting-access-to-the-twitter-api)
 2. Get mixpanel token at [https://developer.mixpanel.com/docs](https://developer.mixpanel.com/docs)
