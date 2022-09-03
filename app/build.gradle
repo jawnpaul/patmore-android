@@ -73,7 +73,7 @@ android {
         versionCode AndroidClient.versionCode
         versionName AndroidClient.versionName
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.patmore.android.CustomTestRunner"
     }
 
     buildTypes {
