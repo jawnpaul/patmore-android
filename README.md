@@ -119,7 +119,7 @@ Build System: [Gradle](https://gradle.org/)
    ```sh
    TWITTER_BEARER_TOKEN=<Enter your Twitter Bearer Token>
    TWITTER_CLIENT_ID=<Insert your Twitter client ID>
-   PATMORE_BASE_URL=https://patmore.herokuapp.com/
+   PATMORE_BASE_URL=https://stream-api-2.fly.dev/
    TWITTER_BASE_URL=https://api.twitter.com/2/
    MIXPANEL_DEV_TOKEN=<Enter your mixpanel token>
    MIXPANEL_PROD_TOKEN=<Enter your>
