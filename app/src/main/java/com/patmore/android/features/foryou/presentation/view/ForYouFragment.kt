@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.patmore.android.core.utility.analytics.MixPanelUtil
 import com.patmore.android.core.utility.safeNavigate
 import com.patmore.android.databinding.FragmentForYouBinding
-import com.patmore.android.features.foryou.presentation.adapter.CategoryPagerAdapter
 import com.patmore.android.features.foryou.presentation.viewmodel.ForYouViewModel
 import com.xwray.groupie.GroupieAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,10 +24,10 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ForYouFragment : Fragment() {
-    private lateinit var sportCategoryAdapter: CategoryPagerAdapter
     private var _binding: FragmentForYouBinding? = null
     private val binding get() = _binding!!
     private val forYouViewModel: ForYouViewModel by activityViewModels()
+    private lateinit var groupieAdapter: GroupieAdapter
 
     private val TAG = ForYouFragment::class.simpleName
 
@@ -51,6 +50,9 @@ class ForYouFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         forYouViewModel.showBottomNavBar(true)
+        groupieAdapter = GroupieAdapter()
+        groupieAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         binding.mainRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
@@ -72,11 +74,9 @@ class ForYouFragment : Fragment() {
 
                     state.response?.let { sections ->
                         if (sections.isNotEmpty()) {
-                            val groupieAdapter = GroupieAdapter()
                             binding.mainRecyclerView.adapter = groupieAdapter
                             groupieAdapter.addAll(sections)
                         } else {
-                            val groupieAdapter = GroupieAdapter()
                             binding.mainRecyclerView.adapter = groupieAdapter
                         }
                     }
